@@ -203,19 +203,4 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery {
     private void setParameters(List<IParameter<?>> parameters) {
         this.parameters = parameters;
     }
-
-    /**
-     * @hibernate.property name="createdDate" column="CREATED_DATE" type="timestamp" not-null="true"
-     * @return the createdDate
-     */
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    /**
-     * @param createdDate the createdDate to set
-     */
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 }
