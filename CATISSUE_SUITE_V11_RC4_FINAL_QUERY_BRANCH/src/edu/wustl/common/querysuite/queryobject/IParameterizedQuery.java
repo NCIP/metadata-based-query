@@ -17,5 +17,4 @@ public interface IParameterizedQuery extends IQuery, INameable, IDescribable {
 
     List<IParameter<?>> getParameters();
     
-    void setCreatedDate(Date createdDate);
 }
