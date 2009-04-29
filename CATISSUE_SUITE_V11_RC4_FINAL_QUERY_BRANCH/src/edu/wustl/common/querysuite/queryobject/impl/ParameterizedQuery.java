@@ -87,7 +87,6 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.createdDate = createdDate;
     }
 
     /**
