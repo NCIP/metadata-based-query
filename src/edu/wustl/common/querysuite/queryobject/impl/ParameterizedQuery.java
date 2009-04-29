@@ -29,9 +29,6 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery {
     private String description;
 
     private List<IParameter<?>> parameters;
-
-    private Date createdDate;
-
     /**
      * Default Constructor
      */
