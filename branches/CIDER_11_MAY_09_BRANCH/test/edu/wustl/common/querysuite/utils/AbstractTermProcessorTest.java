@@ -7,7 +7,10 @@ import static edu.wustl.common.querysuite.utils.DynExtnMockUtil.createExpression
 import java.sql.Date;
 
 import junit.framework.TestCase;
+import edu.common.dynamicextensions.domaininterface.AttributeInterface;
 import edu.wustl.common.querysuite.factory.QueryObjectFactory;
+import edu.wustl.common.querysuite.querableobject.QueryableObjectUtility;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.ArithmeticOperator;
 import edu.wustl.common.querysuite.queryobject.DSInterval;
 import edu.wustl.common.querysuite.queryobject.IArithmeticOperand;
@@ -95,25 +98,27 @@ public abstract class AbstractTermProcessorTest extends TestCase {
     }
 
     protected IExpressionAttribute createNumericExpressionAttribute(String attrName, String entityName) {
-        return createExpressionAttribute(attrName, entityName, TermType.Numeric);
+        return createExpressionAttribute(attrName, entityName);
     }
 
     protected IExpressionAttribute createDateExpressionAttribute(String attrName, String entityName) {
-        return createExpressionAttribute(attrName, entityName, TermType.Date);
+        return createExpressionAttribute(attrName, entityName);
     }
 
     protected IExpressionAttribute createTimestampExpressionAttribute(String attrName, String entityName) {
-        return createExpressionAttribute(attrName, entityName, TermType.Timestamp);
+        return createExpressionAttribute(attrName, entityName);
     }
 
     protected <T extends Enum<?> & ITimeIntervalEnum> IDateOffsetAttribute createDateOffsetExpressionAttribute(
             String attrName, String entityName, T timeInterval) {
-        return QueryObjectFactory.createDateOffsetAttribute(createExpression(1), createAttribute(attrName,
-                createEntity(entityName)), TimeInterval.compoundEnum(timeInterval));
+    	AttributeInterface attribute =createAttribute(attrName,createEntity(entityName));
+    	QueryableAttributeInterface queryableAttribute = QueryableObjectUtility.createQueryableAttribute(attribute, attribute.getEntity());
+        return QueryObjectFactory.createDateOffsetAttribute(createExpression(1), queryableAttribute, TimeInterval.compoundEnum(timeInterval));
     }
 
-    private IExpressionAttribute createExpressionAttribute(String attrName, String entityName, TermType termType) {
-        return QueryObjectFactory.createExpressionAttribute(createExpression(1), createAttribute(attrName,
-                createEntity(entityName), termType));
+    private IExpressionAttribute createExpressionAttribute(String attrName, String entityName) {
+    	AttributeInterface attribute = createAttribute(attrName,createEntity(entityName));
+    	QueryableAttributeInterface queryableAttribute = QueryableObjectUtility.createQueryableAttribute(attribute, attribute.getEntity());
+        return QueryObjectFactory.createExpressionAttribute(createExpression(1), queryableAttribute );
     }
 }
