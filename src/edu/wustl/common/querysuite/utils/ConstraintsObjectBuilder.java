@@ -20,13 +20,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
 import edu.common.dynamicextensions.domaininterface.EntityInterface;
 import edu.wustl.common.querysuite.exceptions.CyclicException;
 import edu.wustl.common.querysuite.factory.QueryObjectFactory;
 import edu.wustl.common.querysuite.metadata.associations.IAssociation;
 import edu.wustl.common.querysuite.metadata.associations.IInterModelAssociation;
 import edu.wustl.common.querysuite.metadata.path.IPath;
+import edu.wustl.common.querysuite.querableobject.QueryableObjectUtility;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.ICondition;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.IQuery;
@@ -86,7 +88,7 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * @see edu.wustl.common.querysuite.utils.IConstraintsObjectBuilderInterface#addExpression(edu.wustl.common.querysuite.queryobject.IRule,
      *      edu.common.dynamicextensions.domaininterface.EntityInterface)
      */
-    public int addExpression(IRule rule, EntityInterface entity) {
+    public int addExpression(IRule rule, QueryableObjectInterface entity) {
         IQueryEntity queryEntity = QueryObjectFactory.createQueryEntity(entity);
         IExpression expression = query.getConstraints().addExpression(queryEntity);
         expression.setInView(true);
@@ -237,11 +239,11 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * 
      * @return Collection of all entities in the constraints of the query.
      */
-    public Collection<EntityInterface> getEntities() {
-        Collection<EntityInterface> entities = new HashSet<EntityInterface>();
+    public Collection<QueryableObjectInterface> getEntities() {
+        Collection<QueryableObjectInterface> entities = new HashSet<QueryableObjectInterface>();
 
         for(IExpression expression : query.getConstraints()) {
-            entities.add((EntityInterface) expression.getQueryEntity().getDynamicExtensionsEntity());
+            entities.add(expression.getQueryEntity().getDynamicExtensionsEntity());
         }
 
         return entities;
@@ -253,7 +255,7 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * 
      * @param entity The entity for which the expression is to be created.
      */
-    public int createDummyExpression(EntityInterface entity) {
+    public int createDummyExpression(QueryableObjectInterface entity) {
         // Logger.out.debug("Inside createDummyExpression()");
         IQueryEntity queryEntity = QueryObjectFactory.createQueryEntity(entity);
         IExpression expression = query.getConstraints().addExpression(queryEntity);
@@ -273,8 +275,8 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * @param entity the entity for which the new expression is to be created
      *            (can be different from conditions' attribute's entity).
      */
-    public int addRule(List<AttributeInterface> attributes, List<String> operators,
-            List<String> firstValues, List<String> secondValues, EntityInterface entity) {
+    public int addRule(List<QueryableAttributeInterface> attributes, List<String> operators,
+            List<String> firstValues, List<String> secondValues, QueryableObjectInterface entity) {
         // Create the list of conditions submitted by user.
         List<ICondition> conditionList = getConditions(attributes, operators, firstValues, secondValues);
 
@@ -294,8 +296,8 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * @param entity the entity for which the new expression is to be created
      *            (can be different from conditions' attribute's entity).
      */
-    public int addRule(List<AttributeInterface> attributes, List<String> operators,
-            List<List<String>> Values, EntityInterface entity) {
+    public int addRule(List<QueryableAttributeInterface> attributes, List<String> operators,
+            List<List<String>> Values, QueryableObjectInterface entity) {
         // Create the list of conditions submitted by user.
         List<ICondition> conditionList = getConditions(attributes, operators, Values);
 
@@ -315,7 +317,7 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * @return the list of conditions given the attributes, operators and the
      *         values for the attributes.
      */
-    public List<ICondition> getConditions(List<AttributeInterface> attributes, List<String> operators,
+    public List<ICondition> getConditions(List<QueryableAttributeInterface> attributes, List<String> operators,
             List<List<String>> Values) {
         List<ICondition> conditionList = new ArrayList<ICondition>();
         for (int i = 0; i < attributes.size(); i++) {
@@ -344,7 +346,7 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
      * @return the list of conditions given the attributes, operators and the
      *         values for the attributes.
      */
-    public List<ICondition> getConditions(List<AttributeInterface> attributes, List<String> operators,
+    public List<ICondition> getConditions(List<QueryableAttributeInterface> attributes, List<String> operators,
             List<String> firstValues, List<String> secondValues) {
         List<ICondition> conditionList = new ArrayList<ICondition>();
         for (int i = 0; i < attributes.size(); i++) {
@@ -411,7 +413,7 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
         int srcExpressionId = sourceExpressionId;
         for (int i = 0; i < associations.size() - 1; i++) {
             EntityInterface targetEntity = associations.get(i).getTargetEntity();
-            int targetExpressionId = createDummyExpression(targetEntity);
+            int targetExpressionId = createDummyExpression(QueryableObjectUtility.createQueryableObject(targetEntity));
             IExpression targetExpression = this.exprFromId(targetExpressionId);
             targetExpression.setVisible(false);
             intermediateExpressionIds.add(targetExpressionId);
@@ -484,7 +486,7 @@ public class ConstraintsObjectBuilder implements IConstraintsObjectBuilderInterf
         }
     }
 
-    public int addExpression(EntityInterface entity) {
+    public int addExpression(QueryableObjectInterface entity) {
         IQueryEntity queryEntity = QueryObjectFactory.createQueryEntity(entity);
         IExpression expression = query.getConstraints().addExpression(queryEntity);
         expression.setInView(true);

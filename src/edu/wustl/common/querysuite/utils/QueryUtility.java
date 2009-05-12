@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
-import edu.common.dynamicextensions.domaininterface.EntityInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.IArithmeticOperand;
 import edu.wustl.common.querysuite.queryobject.ICondition;
 import edu.wustl.common.querysuite.queryobject.IConstraints;
@@ -97,13 +97,13 @@ public class QueryUtility {
      * @param query
      * @return Map of ExpressionId -> Collection of Attribute
      */
-    public static Map<IExpression, Collection<AttributeInterface>> getAllAttributes(IQuery query) {
-        Map<IExpression, Collection<AttributeInterface>> expressionIdAttributeCollectionMap = new HashMap<IExpression, Collection<AttributeInterface>>();
+    public static Map<IExpression, Collection<QueryableAttributeInterface>> getAllAttributes(IQuery query) {
+        Map<IExpression, Collection<QueryableAttributeInterface>> expressionIdAttributeCollectionMap = new HashMap<IExpression, Collection<QueryableAttributeInterface>>();
         if (query != null) {
             for (IExpression expression : query.getConstraints()) {
                 if (expression.isVisible()) {
-                    EntityInterface deEntity = expression.getQueryEntity().getDynamicExtensionsEntity();
-                    Collection<AttributeInterface> attributeCollection = deEntity.getEntityAttributesForQuery();
+                    QueryableObjectInterface deEntity = expression.getQueryEntity().getDynamicExtensionsEntity();
+                    Collection<QueryableAttributeInterface> attributeCollection = deEntity.getEntityAttributesForQuery();
                     expressionIdAttributeCollectionMap.put(expression, attributeCollection);
                 }
             }
