@@ -1,6 +1,6 @@
 package edu.wustl.common.querysuite.queryobject.impl;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.IDateOffsetAttribute;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.TermType;
@@ -15,7 +15,7 @@ public class DateOffsetAttribute extends ExpressionAttribute implements IDateOff
 
     }
 
-    public DateOffsetAttribute(IExpression expression, AttributeInterface attribute, TimeInterval timeInterval) {
+    public DateOffsetAttribute(IExpression expression, QueryableAttributeInterface attribute, TimeInterval timeInterval) {
         super(expression, attribute, TermType.termType(timeInterval));
         if (timeInterval == null) {
             throw new NullPointerException();

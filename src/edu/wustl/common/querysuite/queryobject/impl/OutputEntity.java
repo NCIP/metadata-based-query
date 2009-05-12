@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
-import edu.common.dynamicextensions.domaininterface.EntityInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.IOutputEntity;
 
 /**
@@ -20,7 +20,7 @@ public class OutputEntity extends QueryEntity implements IOutputEntity {
 
     private static final long serialVersionUID = -823732241107299703L;
 
-    private List<AttributeInterface> selectedAttributes = new ArrayList<AttributeInterface>();
+    private List<QueryableAttributeInterface> selectedAttributes = new ArrayList<QueryableAttributeInterface>();
 
     /**
      * To instanciate OutputEntity object.
@@ -28,7 +28,7 @@ public class OutputEntity extends QueryEntity implements IOutputEntity {
      * @param entityInterface The Dynamic Extension entity reference associated
      *            with this object.
      */
-    public OutputEntity(EntityInterface entityInterface) {
+    public OutputEntity(QueryableObjectInterface entityInterface) {
         super(entityInterface);
     }
 
@@ -37,7 +37,7 @@ public class OutputEntity extends QueryEntity implements IOutputEntity {
      *         Output tree.
      * @see edu.wustl.common.querysuite.queryobject.IOutputEntity#getSelectedAttributes()
      */
-    public List<AttributeInterface> getSelectedAttributes() {
+    public List<QueryableAttributeInterface> getSelectedAttributes() {
         return selectedAttributes;
     }
 
@@ -45,7 +45,7 @@ public class OutputEntity extends QueryEntity implements IOutputEntity {
      * @param selectedAttributesIndices the attribute list to be set.
      * @see edu.wustl.common.querysuite.queryobject.IOutputEntity#setSelectedAttributes(java.util.List)
      */
-    public void setSelectedAttributes(List<AttributeInterface> selectedAttributesIndices) {
+    public void setSelectedAttributes(List<QueryableAttributeInterface> selectedAttributesIndices) {
         this.selectedAttributes = selectedAttributesIndices;
     }
 
@@ -63,8 +63,8 @@ public class OutputEntity extends QueryEntity implements IOutputEntity {
         }
         if (obj != null && this.getClass() == obj.getClass()) {
             OutputEntity theObj = (OutputEntity) obj;
-            Set<AttributeInterface> attributeSet = new HashSet<AttributeInterface>(selectedAttributes);
-            Set<AttributeInterface> theAttributeSet = new HashSet<AttributeInterface>(theObj.selectedAttributes);
+            Set<QueryableAttributeInterface> attributeSet = new HashSet<QueryableAttributeInterface>(selectedAttributes);
+            Set<QueryableAttributeInterface> theAttributeSet = new HashSet<QueryableAttributeInterface>(theObj.selectedAttributes);
             return attributeSet.equals(theAttributeSet) && super.equals(obj);
         }
         return false;

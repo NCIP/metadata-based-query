@@ -5,7 +5,7 @@ package edu.wustl.common.querysuite.queryobject.impl;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.IOutputAttribute;
 
@@ -21,7 +21,7 @@ public class OutputAttribute extends BaseQueryObject implements IOutputAttribute
 
     private IExpression expression;
 
-    private AttributeInterface attribute;
+    private QueryableAttributeInterface attribute;
 
     /** Default Constructor */
     public OutputAttribute() {
@@ -34,7 +34,7 @@ public class OutputAttribute extends BaseQueryObject implements IOutputAttribute
      * @param expression
      * @param attribute
      */
-    public OutputAttribute(IExpression expression, AttributeInterface attribute) {
+    public OutputAttribute(IExpression expression, QueryableAttributeInterface attribute) {
         this.expression = expression;
         this.attribute = attribute;
     }
@@ -65,14 +65,14 @@ public class OutputAttribute extends BaseQueryObject implements IOutputAttribute
     /**
      * @return the attribute
      */
-    public AttributeInterface getAttribute() {
+    public QueryableAttributeInterface getAttribute() {
         return attribute;
     }
 
     /**
      * @param attribute the attribute to set
      */
-    public void setAttribute(AttributeInterface attribute) {
+    public void setAttribute(QueryableAttributeInterface attribute) {
         this.attribute = attribute;
     }
 

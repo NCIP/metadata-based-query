@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.ICondition;
 import edu.wustl.common.querysuite.queryobject.RelationalOperator;
 
@@ -23,7 +23,7 @@ public class Condition extends BaseQueryObject implements ICondition {
     /**
      * Stores the associated attribute
      */
-    private AttributeInterface attribute;
+    private QueryableAttributeInterface attribute;
 
     /**
      * Stores the associated relational operator
@@ -50,7 +50,7 @@ public class Condition extends BaseQueryObject implements ICondition {
      * @param relationalOperator The reference to relational Operator.
      * @param values The list of Strings representing value part of condition.
      */
-    public Condition(AttributeInterface attribute, RelationalOperator relationalOperator, List<String> values) {
+    public Condition(QueryableAttributeInterface attribute, RelationalOperator relationalOperator, List<String> values) {
         this.attribute = attribute;
         this.relationalOperator = relationalOperator;
 
@@ -79,7 +79,7 @@ public class Condition extends BaseQueryObject implements ICondition {
      *         condition.
      * @see edu.wustl.common.querysuite.queryobject.ICondition#getAttribute()
      */
-    public AttributeInterface getAttribute() {
+    public QueryableAttributeInterface getAttribute() {
         return attribute;
     }
 
@@ -88,7 +88,7 @@ public class Condition extends BaseQueryObject implements ICondition {
      *            formed.
      * @see edu.wustl.common.querysuite.queryobject.ICondition#setAttribute(edu.common.dynamicextensions.domaininterface.AttributeInterface)
      */
-    public void setAttribute(AttributeInterface attribute) {
+    public void setAttribute(QueryableAttributeInterface attribute) {
         this.attribute = attribute;
     }
 
