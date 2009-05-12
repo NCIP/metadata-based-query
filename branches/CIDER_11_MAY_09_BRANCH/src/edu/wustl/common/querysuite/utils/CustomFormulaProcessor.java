@@ -2,9 +2,7 @@ package edu.wustl.common.querysuite.utils;
 
 import static edu.wustl.common.querysuite.queryobject.RelationalOperator.Between;
 import static edu.wustl.common.querysuite.queryobject.RelationalOperator.Equals;
-import static edu.wustl.common.querysuite.queryobject.RelationalOperator.GreaterThanOrEquals;
 import static edu.wustl.common.querysuite.queryobject.RelationalOperator.In;
-import static edu.wustl.common.querysuite.queryobject.RelationalOperator.LessThanOrEquals;
 import static edu.wustl.common.querysuite.queryobject.RelationalOperator.NotBetween;
 import static edu.wustl.common.querysuite.queryobject.RelationalOperator.NotEquals;
 import static edu.wustl.common.querysuite.queryobject.RelationalOperator.NotIn;

@@ -2,8 +2,8 @@ package edu.wustl.common.querysuite.utils;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
 import edu.wustl.common.querysuite.factory.QueryObjectFactory;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.ArithmeticOperator;
 import edu.wustl.common.querysuite.queryobject.DSInterval;
 import edu.wustl.common.querysuite.queryobject.IArithmeticOperand;
@@ -45,8 +45,8 @@ public class TermProcessor {
     static final IAttributeAliasProvider defaultAliasProvider = new IAttributeAliasProvider() {
 
         public String getAliasFor(IExpressionAttribute exprAttr) {
-            AttributeInterface attribute = exprAttr.getAttribute();
-            String entityName = attribute.getEntity().getName();
+            QueryableAttributeInterface attribute = exprAttr.getAttribute();
+            String entityName = attribute.getActualEntity().getName();
             entityName = entityName.substring(entityName.lastIndexOf(".") + 1);
             return entityName + "." + attribute.getName();
         }
