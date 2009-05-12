@@ -1,6 +1,5 @@
 package edu.wustl.common.querysuite.metadata.associations;
 
-import edu.wustl.common.querysuite.metadata.associations.IMetadataInterModelAssociation;
 
 public interface IInterModelAssociation extends IMetadataInterModelAssociation {
 
