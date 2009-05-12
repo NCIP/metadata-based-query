@@ -1,6 +1,6 @@
 package edu.wustl.common.querysuite.queryobject.impl;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.IExpressionAttribute;
 import edu.wustl.common.querysuite.queryobject.TermType;
@@ -10,13 +10,13 @@ public class ExpressionAttribute extends ArithmeticOperand implements IExpressio
 
     private IExpression expression;
 
-    private AttributeInterface attribute;
+    private QueryableAttributeInterface attribute;
 
     ExpressionAttribute() {
     // for hibernate
     }
 
-    public ExpressionAttribute(IExpression expression, AttributeInterface attribute, TermType termType) {
+    public ExpressionAttribute(IExpression expression, QueryableAttributeInterface attribute, TermType termType) {
         setExpression(expression);
         setAttribute(attribute);
         setTermType(termType);
@@ -27,11 +27,11 @@ public class ExpressionAttribute extends ArithmeticOperand implements IExpressio
         super.setTermType(termType);
     }
 
-    public AttributeInterface getAttribute() {
+    public QueryableAttributeInterface getAttribute() {
         return attribute;
     }
 
-    public void setAttribute(AttributeInterface attribute) {
+    public void setAttribute(QueryableAttributeInterface attribute) {
         if (attribute == null) {
             throw new NullPointerException();
         }

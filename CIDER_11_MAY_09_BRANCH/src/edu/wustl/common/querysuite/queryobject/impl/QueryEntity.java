@@ -5,8 +5,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.common.dynamicextensions.domaininterface.EntityInterface;
-import edu.common.dynamicextensions.util.global.Constants.InheritanceStrategy;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.IQueryEntity;
 
 /**
@@ -20,7 +19,7 @@ import edu.wustl.common.querysuite.queryobject.IQueryEntity;
 public class QueryEntity extends BaseQueryObject implements IQueryEntity {
     private static final long serialVersionUID = 1L;
 
-    protected EntityInterface entityInterface;
+    protected QueryableObjectInterface entityInterface;
 
     /**
      * Default Constructor
@@ -35,7 +34,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
      * @param entityInterface The Dynamic Extension entity reference associated
      *            with this object.
      */
-    public QueryEntity(EntityInterface entityInterface) {
+    public QueryEntity(QueryableObjectInterface entityInterface) {
         this.entityInterface = entityInterface;
     }
 
@@ -55,14 +54,14 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
     /**
      * @return the entityInterface
      */
-    public EntityInterface getEntityInterface() {
+    public QueryableObjectInterface getEntityInterface() {
         return entityInterface;
     }
 
     /**
      * @param entityInterface the entityInterface to set
      */
-    public void setEntityInterface(EntityInterface entityInterface) {
+    public void setEntityInterface(QueryableObjectInterface entityInterface) {
         this.entityInterface = entityInterface;
     }
 
@@ -73,11 +72,11 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
      *         QueryEntity.
      * @see edu.wustl.common.querysuite.queryobject.IQueryEntity#getDynamicExtensionsEntity()
      */
-    public EntityInterface getDynamicExtensionsEntity() {
+    public QueryableObjectInterface getDynamicExtensionsEntity() {
         return entityInterface;
     }
 
-    public void setDynamicExtensionsEntity(EntityInterface entityInterface) {
+    public void setDynamicExtensionsEntity(QueryableObjectInterface entityInterface) {
         setEntityInterface(entityInterface);
     }
 
@@ -133,17 +132,17 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
      * @return true if the two entities can be pseudoAnded.
      */
     public boolean isPseudoAndedEntity(IQueryEntity queryEntity) {
-        EntityInterface theEntityInterface = queryEntity.getDynamicExtensionsEntity();
+    	QueryableObjectInterface theEntityInterface = queryEntity.getDynamicExtensionsEntity();
         if (entityInterface.equals(theEntityInterface)) {
             return true;
         }
         // check for the Parent class heirarchy.
         // It will check whether two entities belongs to the same Class
         // heirarchy having TABLE_PER_HEIRARCHY as inheritance strategy.
-        EntityInterface parentEntity = entityInterface.getParentEntity();
-        EntityInterface theParentEntity = theEntityInterface.getParentEntity();
+        QueryableObjectInterface parentEntity = entityInterface.getParentEntity();
+        QueryableObjectInterface theParentEntity = theEntityInterface.getParentEntity();
         if (parentEntity != null && theParentEntity != null) {
-            Set<EntityInterface> parentHeirarchy = getParentHeirarchy(entityInterface);
+            Set<QueryableObjectInterface> parentHeirarchy = getParentHeirarchy(entityInterface);
             // retaining common parent entities
             parentHeirarchy.retainAll(getParentHeirarchy(theEntityInterface));
 
@@ -164,19 +163,20 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
      * @return the set of Parent entities with inheritance strategy as
      *         TABLE_PER_HEIRARCHY.
      */
-    private Set<EntityInterface> getParentHeirarchy(EntityInterface entityInterface) {
-        Set<EntityInterface> set = new HashSet<EntityInterface>();
+    private Set<QueryableObjectInterface> getParentHeirarchy(QueryableObjectInterface entityInterface) {
+        Set<QueryableObjectInterface> set = new HashSet<QueryableObjectInterface>();
         // Iterating on parent heirarchy till the inheritance strategy is
         // TABLE_PER_HEIRARCHY.
-        do {
-            set.add(entityInterface);
+        set.add(entityInterface);
+        /*do {
+            
             if (entityInterface.getInheritanceStrategy().equals(InheritanceStrategy.TABLE_PER_HEIRARCHY)) {
                 entityInterface = entityInterface.getParentEntity();
             } else {
                 break;
             }
 
-        } while (entityInterface != null);
+        } while (entityInterface != null);*/
 
         return set;
     }
