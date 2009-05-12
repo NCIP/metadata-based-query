@@ -1,6 +1,6 @@
 package edu.wustl.common.querysuite.queryobject;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 
 /**
  * Represents an attribute in a term. Such an attribute must belong to an
@@ -20,7 +20,7 @@ public interface IExpressionAttribute extends IArithmeticOperand {
     /**
      * @return the actual attribute which is used in a term.
      */
-    AttributeInterface getAttribute();
+    QueryableAttributeInterface getAttribute();
 
-    void setAttribute(AttributeInterface attribute);
+    void setAttribute(QueryableAttributeInterface attribute);
 }
