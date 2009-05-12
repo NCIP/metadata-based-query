@@ -3,7 +3,7 @@ package edu.wustl.common.querysuite.queryobject;
 
 import java.util.List;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 
 /**
  * A condition containing an attribute, relational operator and value(s).
@@ -19,7 +19,7 @@ public interface ICondition extends IBaseQueryObject, IParameterizable
 	 * To get the left operand of the condition.
 	 * @return The Dynamic extension attribute, the left operand of the condition.
 	 */
-	AttributeInterface getAttribute();
+	QueryableAttributeInterface getAttribute();
 
 	/**
 	 * To get the relational operator of condition.
@@ -44,7 +44,7 @@ public interface ICondition extends IBaseQueryObject, IParameterizable
 	 * @param attribute The reference to the Synamic Extension attribute on which condition to be formed.
 	 * 
 	 */
-	void setAttribute(AttributeInterface attribute);
+	void setAttribute(QueryableAttributeInterface attribute);
 
 	/**
 	 * To set relational operator for the Condition.

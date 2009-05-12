@@ -3,7 +3,7 @@
  */
 package edu.wustl.common.querysuite.queryobject;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 
 /**
  * @author chetan_patil
@@ -12,5 +12,5 @@ import edu.common.dynamicextensions.domaininterface.AttributeInterface;
 public interface IOutputAttribute extends IBaseQueryObject {
     IExpression getExpression();
 
-    AttributeInterface getAttribute();
+    QueryableAttributeInterface getAttribute();
 }

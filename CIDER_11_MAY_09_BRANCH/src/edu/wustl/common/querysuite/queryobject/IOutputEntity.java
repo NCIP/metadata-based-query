@@ -3,7 +3,7 @@ package edu.wustl.common.querysuite.queryobject;
 
 import java.util.List;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 
 /**
  * @author prafull_kadam
@@ -24,12 +24,12 @@ public interface IOutputEntity extends IQueryEntity
 	 * getDynamicExtensionsEntity()
 	 * @return the list of Dynamic Extentsion attributes.
 	 */
-	List<AttributeInterface> getSelectedAttributes();
+	List<QueryableAttributeInterface> getSelectedAttributes();
 
 	/**
 	 * @param selectedAttributesIndices The selectedAttributesIndices to set
 	 * 
 	 */
-	void setSelectedAttributes(List<AttributeInterface> selectedAttributesIndices);
+	void setSelectedAttributes(List<QueryableAttributeInterface> selectedAttributesIndices);
 
 }
