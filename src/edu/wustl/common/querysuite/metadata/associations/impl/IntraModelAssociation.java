@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import edu.common.dynamicextensions.domaininterface.AssociationInterface;
 import edu.common.dynamicextensions.domaininterface.EntityInterface;
-import edu.common.dynamicextensions.util.global.Constants.AssociationDirection;
+import edu.common.dynamicextensions.util.global.DEConstants.AssociationDirection;
 import edu.wustl.common.querysuite.metadata.associations.IIntraModelAssociation;
 
 /**
