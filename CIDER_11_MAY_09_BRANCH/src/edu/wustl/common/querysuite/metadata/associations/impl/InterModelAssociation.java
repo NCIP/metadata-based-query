@@ -2,9 +2,9 @@ package edu.wustl.common.querysuite.metadata.associations.impl;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
 import edu.common.dynamicextensions.domaininterface.EntityInterface;
-import edu.wustl.common.querysuite.metadata.associations.IInterModelAssociation;
+import edu.wustl.common.querysuite.metadata.associations.IQueryableObjectMetadataInterModelAssociation;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
 
 /**
  * This stores all the inter model connections present between given pair of
@@ -16,16 +16,16 @@ import edu.wustl.common.querysuite.metadata.associations.IInterModelAssociation;
  * @hibernate.joined-subclass-key column="IDENTIFIER"
  * @hibernate.cache usage="read-write"
  */
-public class InterModelAssociation extends ModelAssociation implements IInterModelAssociation {
+public class InterModelAssociation extends ModelAssociation implements IQueryableObjectMetadataInterModelAssociation {
     private static final long serialVersionUID = -3230037755747481080L;
 
     private String sourceServiceUrl;
 
     private String targetServiceUrl;
 
-    private AttributeInterface sourceAttribute;
+    private QueryableAttributeInterface sourceAttribute;
 
-    private AttributeInterface targetAttribute;
+    private QueryableAttributeInterface targetAttribute;
 
     /**
      * Default Constructor
@@ -40,7 +40,7 @@ public class InterModelAssociation extends ModelAssociation implements IInterMod
      * @param sourceAttribute
      * @param targetAttribute
      */
-    public InterModelAssociation(AttributeInterface sourceAttribute, AttributeInterface targetAttribute) {
+    public InterModelAssociation(QueryableAttributeInterface sourceAttribute, QueryableAttributeInterface targetAttribute) {
         this.sourceAttribute = sourceAttribute;
         this.targetAttribute = targetAttribute;
     }
@@ -81,35 +81,35 @@ public class InterModelAssociation extends ModelAssociation implements IInterMod
      * @see edu.wustl.common.querysuite.metadata.associations.IAssociation#getSourceEntity()
      */
     public EntityInterface getSourceEntity() {
-        return sourceAttribute.getEntity();
+        return sourceAttribute.getQueryEntity().getEntity();
     }
 
     /**
      * @see edu.wustl.common.querysuite.metadata.associations.IInterModelAssociation#getSourceAttribute()
      */
-    public AttributeInterface getSourceAttribute() {
+    public QueryableAttributeInterface getSourceAttribute() {
         return sourceAttribute;
     }
 
-    public void setSourceAttribute(AttributeInterface sourceAttribute) {
+    public void setSourceAttribute(QueryableAttributeInterface sourceAttribute) {
         this.sourceAttribute = sourceAttribute;
     }
 
     /**
      * @see edu.wustl.common.querysuite.metadata.associations.IAssociation#getTargetEntity()
-     */
+s     */
     public EntityInterface getTargetEntity() {
-        return targetAttribute.getEntity();
+        return targetAttribute.getQueryEntity().getEntity();
     }
 
     /**
      * @see edu.wustl.common.querysuite.metadata.associations.IInterModelAssociation#getTargetAttribute()
      */
-    public AttributeInterface getTargetAttribute() {
+    public QueryableAttributeInterface getTargetAttribute() {
         return targetAttribute;
     }
 
-    public void setTargetAttribute(AttributeInterface targetAttribute) {
+    public void setTargetAttribute(QueryableAttributeInterface targetAttribute) {
         this.targetAttribute = targetAttribute;
     }
 
@@ -165,8 +165,8 @@ public class InterModelAssociation extends ModelAssociation implements IInterMod
             isEqual = true;
         } else if (object != null && this.getClass() == object.getClass()) {
             InterModelAssociation interModelAssociation = (InterModelAssociation) object;
-            AttributeInterface sourceAttribute = interModelAssociation.getSourceAttribute();
-            AttributeInterface targetAttribute = interModelAssociation.getTargetAttribute();
+            QueryableAttributeInterface sourceAttribute = interModelAssociation.getSourceAttribute();
+            QueryableAttributeInterface targetAttribute = interModelAssociation.getTargetAttribute();
             String sourceServiceURL = interModelAssociation.getSourceServiceUrl();
             String targetServiceURL = interModelAssociation.getTargetServiceUrl();
 
