@@ -62,7 +62,7 @@
 				<property name="attribute" column="DE_ATTRIBUTE_ID">
 					<type name="edu.wustl.common.hibernate.CanonicalFormType">
 						<param name="canonical-form-provider">
-							edu.wustl.metadata.hibernate.AttributeCanonicalFormProvider
+							edu.wustl.metadata.hibernate.QueryableAttributeCanonicalFormProvider
 						</param>
 					</type>
 				</property>
@@ -91,7 +91,7 @@
 				<property name="attribute" column="DE_ATTRIBUTE_ID">
 					<type name="edu.wustl.common.hibernate.CanonicalFormType">
 						<param name="canonical-form-provider">
-							edu.wustl.metadata.hibernate.AttributeCanonicalFormProvider
+							edu.wustl.metadata.hibernate.QueryableAttributeCanonicalFormProvider
 						</param>
 					</type>
 				</property>

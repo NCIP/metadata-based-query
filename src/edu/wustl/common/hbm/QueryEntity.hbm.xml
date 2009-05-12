@@ -18,7 +18,7 @@
 		<property name="entityInterface" column="ENTITY_ID" not-null="true">
 			<type name="edu.wustl.common.hibernate.CanonicalFormType">
 				<param name="canonical-form-provider">
-					edu.wustl.metadata.hibernate.EntityCanonicalFormProvider
+					edu.wustl.metadata.hibernate.QueryableObjectCanonicalFormProvider
 				</param>
 			</type>
 		</property>

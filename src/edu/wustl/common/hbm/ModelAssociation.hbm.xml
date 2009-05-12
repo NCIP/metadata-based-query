@@ -46,7 +46,7 @@
 				not-null="true">
 				<type name="edu.wustl.common.hibernate.CanonicalFormType">
 					<param name="canonical-form-provider">
-						edu.wustl.metadata.hibernate.AttributeCanonicalFormProvider
+						edu.wustl.metadata.hibernate.QueryableAttributeCanonicalFormProvider
 					</param>
 				</type>
 			</property>
@@ -55,7 +55,7 @@
 				not-null="true">
 				<type name="edu.wustl.common.hibernate.CanonicalFormType">
 					<param name="canonical-form-provider">
-						edu.wustl.metadata.hibernate.AttributeCanonicalFormProvider
+						edu.wustl.metadata.hibernate.QueryableAttributeCanonicalFormProvider
 					</param>
 				</type>
 			</property>
