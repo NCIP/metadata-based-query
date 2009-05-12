@@ -56,6 +56,8 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery,Ide
     public ParameterizedQuery(IQuery query) {
     	super(query);
     	ParameterizedQuery originalQuery=(ParameterizedQuery)query;
+    	this.createdBy=query.getCreatedBy();
+    	this.createdDate=query.getCreatedDate();
     	this.setConstraints(query.getConstraints());
         this.setType(query.getType());
         this.setOutputAttributeList(originalQuery.getOutputAttributeList());
