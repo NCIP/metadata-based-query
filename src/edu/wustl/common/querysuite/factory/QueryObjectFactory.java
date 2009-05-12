@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.common.dynamicextensions.domaininterface.AssociationInterface;
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
 import edu.common.dynamicextensions.domaininterface.AttributeTypeInformationInterface;
 import edu.common.dynamicextensions.domaininterface.DateTypeInformationInterface;
-import edu.common.dynamicextensions.domaininterface.EntityInterface;
 import edu.common.dynamicextensions.domaininterface.NumericTypeInformationInterface;
 import edu.wustl.common.querysuite.metadata.associations.IIntraModelAssociation;
 import edu.wustl.common.querysuite.metadata.associations.impl.IntraModelAssociation;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.ArithmeticOperator;
 import edu.wustl.common.querysuite.queryobject.ICondition;
 import edu.wustl.common.querysuite.queryobject.IConnector;
@@ -121,7 +121,7 @@ public abstract class QueryObjectFactory {
      * @param values The List of String representing values of the condition.
      * @return The instance of the Condition class.
      */
-    public static ICondition createCondition(AttributeInterface attribute, RelationalOperator relationalOperator,
+    public static ICondition createCondition(QueryableAttributeInterface attribute, RelationalOperator relationalOperator,
             List<String> values) {
         return new Condition(attribute, relationalOperator, values);
     }
@@ -218,7 +218,7 @@ public abstract class QueryObjectFactory {
      *            with this object.
      * @return The reference to the OutputEntity object.
      */
-    public static IOutputEntity createOutputEntity(EntityInterface entityInterface) {
+    public static IOutputEntity createOutputEntity(QueryableObjectInterface entityInterface) {
         return new OutputEntity(entityInterface);
     }
 
@@ -229,7 +229,7 @@ public abstract class QueryObjectFactory {
      *            with this object.
      * @return The reference to the ConstraintEntity object.
      */
-    public static IQueryEntity createQueryEntity(EntityInterface entityInterface) {
+    public static IQueryEntity createQueryEntity(QueryableObjectInterface entityInterface) {
         return new QueryEntity(entityInterface);
     }
 
@@ -241,7 +241,7 @@ public abstract class QueryObjectFactory {
      * @param attribute
      * @return
      */
-    public static IOutputAttribute createOutputAttribute(IExpression expression, AttributeInterface attribute) {
+    public static IOutputAttribute createOutputAttribute(IExpression expression, QueryableAttributeInterface attribute) {
         return new OutputAttribute(expression, attribute);
     }
 
@@ -259,7 +259,7 @@ public abstract class QueryObjectFactory {
         return new CustomFormula();
     }
 
-    public static IExpressionAttribute createExpressionAttribute(IExpression expression, AttributeInterface attribute) {
+    public static IExpressionAttribute createExpressionAttribute(IExpression expression, QueryableAttributeInterface attribute) {
         AttributeTypeInformationInterface attrTypeInfo = attribute.getAttributeTypeInformation();
         TermType termType;
         if (attrTypeInfo instanceof NumericTypeInformationInterface) {
@@ -284,7 +284,7 @@ public abstract class QueryObjectFactory {
         return new OutputTerm(name, term);
     }
 
-    public static IDateOffsetAttribute createDateOffsetAttribute(IExpression expression, AttributeInterface attribute,
+    public static IDateOffsetAttribute createDateOffsetAttribute(IExpression expression, QueryableAttributeInterface attribute,
             TimeInterval timeInterval) {
         if (!(attribute.getAttributeTypeInformation() instanceof NumericTypeInformationInterface)) {
             throw new IllegalArgumentException("date offset attribute " + attribute + " is not numeric.");
