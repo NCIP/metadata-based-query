@@ -18,11 +18,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import edu.common.dynamicextensions.domaininterface.AttributeInterface;
-import edu.common.dynamicextensions.domaininterface.EntityInterface;
 import edu.wustl.common.querysuite.exceptions.CyclicException;
 import edu.wustl.common.querysuite.metadata.associations.IAssociation;
 import edu.wustl.common.querysuite.metadata.path.IPath;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.IQuery;
 import edu.wustl.common.querysuite.queryobject.IRule;
@@ -61,14 +61,14 @@ public interface IConstraintsObjectBuilderInterface {
      *            (can be different from conditions' attribute's entity).
      * @return The int of the expression added.
      */
-    public int addExpression(IRule rule, EntityInterface entity);
+    public int addExpression(IRule rule, QueryableObjectInterface entity);
     
     /**
      * Creates a new empty expression on the specified entity.
      * @param entity the entity for which the new expression is to be created
      * @return the if of the new expression.
      */
-    public int addExpression(EntityInterface entity);
+    public int addExpression(QueryableObjectInterface entity);
 
     /**
      * Edits the expression with the given expression id with the conditions
@@ -146,7 +146,7 @@ public interface IConstraintsObjectBuilderInterface {
      * 
      * @return Collection of all entities in the constraints of the query.
      */
-    public Collection<EntityInterface> getEntities();
+    public Collection<QueryableObjectInterface> getEntities();
 
     /**
      * Creates a dummy expression for the specified entity. This expression
@@ -154,7 +154,7 @@ public interface IConstraintsObjectBuilderInterface {
      * 
      * @param entity The entity for which the expression is to be created.
      */
-    public int createDummyExpression(EntityInterface entity);
+    public int createDummyExpression(QueryableObjectInterface entity);
 
     /**
      * Adds the rule for the given conditions.
@@ -166,8 +166,8 @@ public interface IConstraintsObjectBuilderInterface {
      * @param entity the entity for which the new expression is to be created
      *            (can be different from conditions' attribute's entity).
      */
-    public int addRule(List<AttributeInterface> attributes, List<String> operators,
-            List<String> firstValues, List<String> secondValues, EntityInterface entity);
+    public int addRule(List<QueryableAttributeInterface> attributes, List<String> operators,
+            List<String> firstValues, List<String> secondValues, QueryableObjectInterface entity);
 
     /**
      * Adds the rule for the given conditions.
@@ -179,8 +179,8 @@ public interface IConstraintsObjectBuilderInterface {
      * @param entity the entity for which the new expression is to be created
      *            (can be different from conditions' attribute's entity).
      */
-    public int addRule(List<AttributeInterface> attributes, List<String> operators,
-            List<List<String>> Values, EntityInterface entity);
+    public int addRule(List<QueryableAttributeInterface> attributes, List<String> operators,
+            List<List<String>> Values, QueryableObjectInterface entity);
 
     /**
      * Adds parantheses around operands with ids child1Id and child2Id which are
