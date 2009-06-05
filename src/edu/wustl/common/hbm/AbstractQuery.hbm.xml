@@ -57,6 +57,26 @@
             length="30"
             not-null="true"
         />
+        
+        
+		<property
+			name="updationDate"
+			type="timestamp"
+			update="true"
+			insert="true"
+			column="UPDATION_DATE"
+			not-null="true" />
+
+		<property
+            name="updatedBy"
+            type="long"
+            update="true"
+            insert="true"
+            column="UPDATED_BY"
+            length="30"
+            not-null="true"
+        />
+        
 
 	<joined-subclass
 			name="edu.wustl.common.querysuite.queryobject.impl.Query"
