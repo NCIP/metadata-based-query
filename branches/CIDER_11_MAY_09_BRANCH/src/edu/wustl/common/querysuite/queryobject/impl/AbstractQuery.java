@@ -19,16 +19,22 @@ public class AbstractQuery extends BaseQueryObject implements IAbstractQuery {
     /** Type of the query */
     protected String type;
 
-    /** Description of the query */
+	/** Description of the query */
     protected String description;
 
     /** Date of creation */
     protected Date createdDate;
+    
+    /** Date of updation */
+    protected Date updationDate;
 
     /** The identifier of the creator/user */
     protected Long createdBy;
+    
+    /** The identifier of the updator/user */
+    protected Long updatedBy;
 
-    /**
+	/**
      * @see edu.wustl.common.querysuite.queryobject.IDescribable#getName()
      *
      * @hibernate.property name="name" column="QUERY_NAME" type="string"
@@ -94,6 +100,23 @@ public class AbstractQuery extends BaseQueryObject implements IAbstractQuery {
     }
 
     /**
+     * @return the updationDate
+     *
+     * @hibernate.property name="updationDate" column="UPDATION_DATE" type="timestamp" not-null="true"
+     */
+    public Date getUpdationDate() {
+		return updationDate;
+	}
+
+
+    /**
+     * @param updationDate the updationDate to set
+     */
+	public void setUpdationDate(Date updationDate) {
+		this.updationDate = updationDate;
+	}
+
+    /**
      * @return the createdBy
      *
      * @hibernate.property name="createdBy" column="CREATED_BY" type="long" not-null="true"
@@ -108,4 +131,20 @@ public class AbstractQuery extends BaseQueryObject implements IAbstractQuery {
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
+    
+    /**
+     * @return the updatedBy
+     *
+     * @hibernate.property name="updatedBy" column="UPDATED_BY" type="long" not-null="true"
+     */
+    public Long getUpdatedBy() {
+		return updatedBy;
+	}
+    /**
+     * @param updatedBy the updatedBy to set
+     */
+	public void setUpdatedBy(Long updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
 }
