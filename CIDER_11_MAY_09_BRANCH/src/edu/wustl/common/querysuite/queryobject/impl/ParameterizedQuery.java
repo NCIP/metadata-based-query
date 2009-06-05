@@ -58,6 +58,8 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery,Ide
     	ParameterizedQuery originalQuery=(ParameterizedQuery)query;
     	this.createdBy=query.getCreatedBy();
     	this.createdDate=query.getCreatedDate();
+    	this.updatedBy=query.getUpdatedBy();
+    	this.updationDate=query.getUpdationDate();
     	this.setConstraints(query.getConstraints());
         this.setType(query.getType());
         this.setOutputAttributeList(originalQuery.getOutputAttributeList());
@@ -103,11 +105,12 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery,Ide
      * @param description
      * @param createdDate
      */
-    public ParameterizedQuery(Long id, String name, String description, Date createdDate) {
+    public ParameterizedQuery(Long id, String name, String description, Date createdDate,Date updationDate) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdDate = createdDate;
+      	this.updationDate=updationDate;
     }
 
     /**

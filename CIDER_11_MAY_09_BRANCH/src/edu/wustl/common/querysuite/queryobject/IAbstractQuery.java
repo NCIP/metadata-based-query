@@ -32,6 +32,19 @@ public interface IAbstractQuery extends IBaseQueryObject, INameable, IDescribabl
     void setCreatedDate(Date createdDate);
 
     /**
+     * This method returns the date of updation
+     * @return
+     */
+    public Date getUpdationDate();
+
+
+    /**
+     * This method sets the date of updateion
+     * @param updationDate
+     */
+	public void setUpdationDate(Date updationDate);
+
+    /**
      * This method returns the identifier of the creator/user/owner
      * @return
      */
@@ -42,4 +55,14 @@ public interface IAbstractQuery extends IBaseQueryObject, INameable, IDescribabl
      * @param createdBy
      */
     void setCreatedBy(Long createdBy);
+    
+    /**
+     * This method sets the identifier of the creator/user/owner
+     * @param createdBy
+     */
+    public Long getUpdatedBy() ;
+    /**
+     * @param updatedBy the updatedBy to set
+     */
+	public void setUpdatedBy(Long updatedBy) ;
 }
