@@ -94,7 +94,7 @@ create table COMMONS_GRAPH_EDGE (IDENTIFIER bigint not null auto_increment, SOUR
 create table COMMONS_GRAPH_TO_EDGES (GRAPH_ID bigint not null, EDGE_ID bigint not null unique, primary key (GRAPH_ID, EDGE_ID));
 create table COMMONS_GRAPH_TO_VERTICES (GRAPH_ID bigint not null, VERTEX_CLASS varchar(255), VERTEX_ID bigint);
 create table QUERY (IDENTIFIER bigint not null, CONSTRAINTS_ID bigint unique, primary key (IDENTIFIER));
-create table QUERY_ABSTRACT_QUERY (IDENTIFIER bigint not null auto_increment, QUERY_NAME varchar(255) unique, QUERY_TYPE varchar(30), DESCRIPTION text, CREATED_DATE datetime not null, CREATED_BY bigint not null, primary key (IDENTIFIER));
+create table QUERY_ABSTRACT_QUERY (IDENTIFIER bigint not null auto_increment, QUERY_NAME varchar(255) unique, QUERY_TYPE varchar(30), DESCRIPTION text, CREATED_DATE datetime not null, CREATED_BY bigint not null, UPDATION_DATE datetime not null, UPDATED_BY bigint not null, primary key (IDENTIFIER));
 create table QUERY_ARITHMETIC_OPERAND (IDENTIFIER bigint not null, LITERAL varchar(255), TERM_TYPE varchar(255), DATE_LITERAL date, TIME_INTERVAL varchar(255), DE_ATTRIBUTE_ID bigint, EXPRESSION_ID bigint, primary key (IDENTIFIER));
 create table QUERY_BASEEXPR_TO_CONNECTORS (BASE_EXPRESSION_ID bigint not null, CONNECTOR_ID bigint not null, POSITION integer not null, primary key (BASE_EXPRESSION_ID, POSITION));
 create table QUERY_BASE_EXPRESSION (IDENTIFIER bigint not null auto_increment, EXPR_TYPE varchar(255) not null, primary key (IDENTIFIER));
