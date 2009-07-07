@@ -101,7 +101,7 @@ public class CustomFormulaProcessor {
                 return false;
             }
         }
-        if (operator == In || operator == NotIn) {
+        else if (operator == In || operator == NotIn) {
             if (numRhs == 0) {
                 return false;
             }
@@ -143,16 +143,24 @@ public class CustomFormulaProcessor {
                 return lhs + SPACE + getSQL(relationalOperator) + SPACE + rhs;
             }
             if (relationalOperator == Between || relationalOperator == NotBetween) {
-                String rhs2 = termString(rhses.get(1));
-                boolean between = relationalOperator == Between;
-                String logicOper = between ? " and " : " or ";
-                String rel1 = between ? " >= " : " < ";
-                String rel2 = between ? " < " : " >= ";
+                String rhs1 = termString(rhses.get(1));
+
+//                boolean between = relationalOperator == Between;
+//                String logicOper = between ? " and " : " or ";
+//                String rel1 = between ? " >= " : " < ";
+//                String rel2 = between ? " < " : " >= ";
                 // between :
                 // (lhs >= rhs1 and lhs <= rhs2)
                 // notBetween :
                 // (lhs < rhs1 or lhs > rhs2)
-                return brackets(lhs + rel1 + rhs) + logicOper + brackets(lhs + rel2 + rhs2);
+                if(relationalOperator == Between)
+                {
+                	return brackets(lhs + " " + relationalOperator + " " + rhs + " and " + rhs1);
+                }
+                else
+                {
+                	return brackets((lhs + " < " + rhs + " or " +  lhs + " > " + rhs1));
+                }
             }
             // In : lhs = rhs1 or lhs = rhs2 or lhs = rhs3...
             // NotIn : lhs != rhs1 and lhs != rhs2 and lhs != rhs3...
@@ -248,7 +256,7 @@ public class CustomFormulaProcessor {
                 throw new RuntimeException("can't occur.");
             }
             if (relOper == Between) {
-                return brackets(between(formula, offset)) + " or " + brackets(between(swapRhses(formula), offset));
+                return brackets(between(formula, offset));
             }
 
             // in, notIn remain
@@ -279,15 +287,16 @@ public class CustomFormulaProcessor {
 
         private String between(ICustomFormula formula, IArithmeticOperand offset) {
             formula = new DyExtnObjectCloner().clone(formula);
-            ITerm rhs = formula.getAllRhs().get(0);
-            ITerm rhs2 = formula.getAllRhs().get(1);
-            if (offset == null) {
-                subtract(rhs, roundingOffset(rhs));
-                add(rhs2, roundingOffset(rhs2));
-            } else {
-                subtract(rhs, offset);
-                add(rhs2, offset);
-            }
+//            ITerm rhs =  formula.getAllRhs().get(0);
+//            ITerm rhs2 = (ITerm)formula.getAllRhs().get(1);
+           
+//            if (offset == null) {
+//                subtract(rhs, roundingOffset(rhs));
+//                add(rhs2, roundingOffset(rhs2));
+//            } else {
+//                subtract(rhs, offset);
+//                add(rhs2, offset);
+//            }
             return new BasicCFProc().getString(formula);
         }
 

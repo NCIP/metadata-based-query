@@ -25,13 +25,10 @@ public class DB2XQueryPrimitiveOperationProcessor extends SQLPrimitiveOperationP
     String dateToTimestamp(String s) 
     {
 // If it is an attribute 
-    	if(s.contains("$"))
+    	
+    	if(!s.contains("_"))
     	{
-    		s = "xs:dateTime(" + s + ")";
-    	}
-    	else
-    	{
-    		s = "xs:dateTime(\"" + s + "T00:00:00\")";
+    		s = "timestamp('" + s + "-00.00.00')";
     	}
         return s;
     }
@@ -51,44 +48,43 @@ public class DB2XQueryPrimitiveOperationProcessor extends SQLPrimitiveOperationP
     
     private String getTimeIntervalFormula(String s, TimeInterval<?> timeInterval)
     {
-    	
+    	String intervalDuration = "";
+
     	if(timeInterval.name().equals("Year"))
     	{
-    		int k = Integer.valueOf(s) * 365;
-    		return "xdt:dayTimeDuration(\"P" + k + "D\")";
+    		intervalDuration = s + " YEARS ";
     	}
     	if(timeInterval.name().equals("Month"))
     	{
-    		int k = Integer.valueOf(s) * 30;
-    		return "xdt:dayTimeDuration(\"P" + k + "D\")";
+    		intervalDuration = s + " MONTHS ";
     	}
     	if(timeInterval.name().equals("Day"))
     	{
-    		return "xdt:dayTimeDuration(\"P" + s + "D\")";
+    		intervalDuration = s + " DAYS ";
     	}
     	if(timeInterval.name().equals("Hour"))
     	{
-    		return "xdt:dayTimeDuration(\"PT" + s + "H\")";
+    		intervalDuration = s + " HOURS ";
     	}
     	if(timeInterval.name().equals("Minute"))
     	{
-    		return "xdt:dayTimeDuration(\"PT" + s + "M\")";
+    		intervalDuration = s + " MINUTES ";
     	}
     	if(timeInterval.name().equals("Second"))
     	{
-    		return "xdt:dayTimeDuration(\"PT" + s + "S\")";
+    		intervalDuration = s + " SECONDS ";
     	}
     	if(timeInterval.name().equals("Week"))
     	{
     		int k = Integer.valueOf(s) * 7;
-    		return "xdt:dayTimeDuration(\"P" + k + "D\")";	
+    		intervalDuration = k + " DAYS ";
     	}
     	if(timeInterval.name().equals("Quarter"))
     	{
     		int k = Integer.valueOf(s) * 91;
-    		return "xdt:dayTimeDuration(\"P" + k + "D\")";
+    		intervalDuration = k + " DAYS ";
     	}
-    	return "";
+    	return intervalDuration;
     }
 
 }
