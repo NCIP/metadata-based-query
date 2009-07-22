@@ -84,7 +84,7 @@ public class Query extends BaseQueryObject implements IQuery {
 
     // for hibernate
     @SuppressWarnings("unused")
-    private void setOutputTerms(List<IOutputTerm> outputTerms) {
+    public void setOutputTerms(List<IOutputTerm> outputTerms) {
         this.outputTerms = outputTerms;
     }
 }
