@@ -10,6 +10,7 @@ import static edu.wustl.common.querysuite.queryobject.RelationalOperator.getSQL;
 import static edu.wustl.common.querysuite.queryobject.TermType.isDateTime;
 import static edu.wustl.common.querysuite.queryobject.TermType.isInterval;
 
+import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -18,8 +19,10 @@ import edu.wustl.common.querysuite.queryobject.ArithmeticOperator;
 import edu.wustl.common.querysuite.queryobject.IArithmeticOperand;
 import edu.wustl.common.querysuite.queryobject.IConnector;
 import edu.wustl.common.querysuite.queryobject.ICustomFormula;
+import edu.wustl.common.querysuite.queryobject.IDateLiteral;
 import edu.wustl.common.querysuite.queryobject.IDateOffset;
 import edu.wustl.common.querysuite.queryobject.IDateOffsetLiteral;
+import edu.wustl.common.querysuite.queryobject.INumericLiteral;
 import edu.wustl.common.querysuite.queryobject.ITerm;
 import edu.wustl.common.querysuite.queryobject.RelationalOperator;
 import edu.wustl.common.querysuite.queryobject.TermType;
@@ -32,34 +35,34 @@ import edu.wustl.metadata.util.DyExtnObjectCloner;
  * Provides the string representation of a custom formula. It uses
  * {@link TermProcessor} to obtain string representations of the LHS and RHS
  * terms and connects them based on the relational operator.
- * 
+ *
  * @author srinath_k
  * @see TermProcessor
  */
 public class CustomFormulaProcessor {
-    private TermProcessor termProcessor;
+    private final TermProcessor termProcessor;
 
     private static final String SPACE = " ";
 
     /**
      * Uses the default {@link TermProcessor} to obtain string representation of
      * the terms.
-     * 
+     *
      * @see TermProcessor#TermProcessor()
      */
     public CustomFormulaProcessor() {
-        this.termProcessor = new TermProcessor();
+        termProcessor = new TermProcessor();
     }
 
     /**
      * Uses a {@link TermProcessor} initialized with specified parameters to
      * obtain string representation of the terms.
-     * 
+     *
      * @see TermProcessor#TermProcessor(IAttributeAliasProvider,
      *      DatabaseSQLSettings)
      */
     public CustomFormulaProcessor(IAttributeAliasProvider aliasProvider, DatabaseSQLSettings primitiveOperationProcessor, String queryType) {
-        this.termProcessor = new TermProcessor(aliasProvider, primitiveOperationProcessor,queryType);
+        termProcessor = new TermProcessor(aliasProvider, primitiveOperationProcessor,queryType);
     }
 
     /**
@@ -143,24 +146,8 @@ public class CustomFormulaProcessor {
                 return lhs + SPACE + getSQL(relationalOperator) + SPACE + rhs;
             }
             if (relationalOperator == Between || relationalOperator == NotBetween) {
-                String rhs1 = termString(rhses.get(1));
 
-//                boolean between = relationalOperator == Between;
-//                String logicOper = between ? " and " : " or ";
-//                String rel1 = between ? " >= " : " < ";
-//                String rel2 = between ? " < " : " >= ";
-                // between :
-                // (lhs >= rhs1 and lhs <= rhs2)
-                // notBetween :
-                // (lhs < rhs1 or lhs > rhs2)
-                if(relationalOperator == Between)
-                {
-                	return brackets(lhs + " " + relationalOperator + " " + rhs + " and " + rhs1);
-                }
-                else
-                {
-                	return brackets((lhs + " < " + rhs + " or " +  lhs + " > " + rhs1));
-                }
+                return getQueryString(lhs, relationalOperator, rhses, rhs);
             }
             // In : lhs = rhs1 or lhs = rhs2 or lhs = rhs3...
             // NotIn : lhs != rhs1 and lhs != rhs2 and lhs != rhs3...
@@ -177,6 +164,152 @@ public class CustomFormulaProcessor {
             }
             return res;
         }
+
+		/**
+		 * It will return the String representation of Query for the given lhs & rhs .
+		 * It will create the Query string according to the Value given in TQ by ordering them in
+		 * proper order for Between operator.
+		 * @param lhs lhs in custom Formula
+		 * @param relationalOperator operator used
+		 * @param rhses list of the RHS in the CustomFormula
+		 * @param rhs String Representation of the first RHS operand.
+		 * @return
+		 */
+		private String getQueryString(String lhs, RelationalOperator relationalOperator,
+				List<ITerm> rhses, String rhs)
+		{
+
+//                boolean between = relationalOperator == Between;
+//                String logicOper = between ? " and " : " or ";
+//                String rel1 = between ? " >= " : " < ";
+//                String rel2 = between ? " < " : " >= ";
+			// between :
+			// (lhs >= rhs1 and lhs <= rhs2)
+			// notBetween :
+			// (lhs < rhs1 or lhs > rhs2)
+			boolean isSwapNeeded = isFirstValueGreater(rhses.get(0),rhses.get(1));
+			String queryString;
+			String rhs1 = termString(rhses.get(1));
+			if(relationalOperator == Between)
+			{
+				if(isSwapNeeded)
+				{
+					queryString = brackets(lhs + " " + relationalOperator + " " + rhs1 + " and " + rhs);
+				}
+				else
+				{
+					queryString = brackets(lhs + " " + relationalOperator + " " + rhs + " and " + rhs1);
+				}
+			}
+			else
+			{
+				if(isSwapNeeded)
+				{
+					queryString = brackets((lhs + " < " + rhs1 + " or " +  lhs + " > " + rhs));
+				}
+				else
+				{
+					queryString = brackets((lhs + " < " + rhs + " or " +  lhs + " > " + rhs1));
+				}
+
+			}
+			return queryString;
+		}
+
+		/**
+		 * It will check weather first term value is greater than the second one or not.
+		 * @param term first Term.
+		 * @param term2 second Term.
+		 * @return true if first term is greater than second.
+		 */
+		private boolean isFirstValueGreater(ITerm term, ITerm term2)
+		{
+			IArithmeticOperand operand = term.getOperand(0);
+			IArithmeticOperand operand2 = term2.getOperand(0);
+			boolean isGreater = false;
+			if(operand instanceof IDateOffsetLiteral)
+			{
+				isGreater = compareDateOffstes(operand, operand2);
+			}
+			else if (operand instanceof IDateLiteral)
+			{
+				isGreater = compareDateLiterals(operand, operand2);
+			}
+			else if (operand instanceof INumericLiteral)
+			{
+				isGreater = compareNumericLiterals(operand, operand2);
+			}
+			return isGreater;
+		}
+
+		/**
+		 * It will compare the First operands number value with the second Operands
+		 * number value.
+		 * @param operand first operand.
+		 * @param operand2 second operand.
+		 * @return true if first operand is greater than second operand.
+		 */
+		private boolean compareNumericLiterals(IArithmeticOperand operand,
+				IArithmeticOperand operand2)
+		{
+			boolean isGreater = false;
+			INumericLiteral numericLiteral1 = (INumericLiteral)operand;
+			int value1 = Integer.parseInt(numericLiteral1.getNumber());
+			INumericLiteral numericLiteral2 = (INumericLiteral)operand2;
+			int value2 = Integer.parseInt(numericLiteral2.getNumber());
+			if(value1>value2)
+			{
+				isGreater=true;
+			}
+			return isGreater;
+		}
+
+		/**
+		 * It will compare the First operands number value with the second Operands
+		 * number value.
+		 * @param operand first operand.
+		 * @param operand2 second operand.
+		 * @return true if first operand is greater than second operand.
+		 */
+		private boolean compareDateLiterals(IArithmeticOperand operand,
+				IArithmeticOperand operand2)
+		{
+			boolean isGreater = false;
+			IDateLiteral dateLiteral1 = (IDateLiteral)operand;
+			Calendar calendar1 = Calendar.getInstance();
+			calendar1.setTime(dateLiteral1.getDate());
+			IDateLiteral dateLiteral2 = (IDateLiteral)operand2;
+			Calendar calendar2 = Calendar.getInstance();
+			calendar2.setTime(dateLiteral2.getDate());
+			if(calendar1.compareTo(calendar2)>0)
+			{
+				isGreater=true;
+			}
+			return isGreater;
+		}
+
+		/**
+		 * It will compare the First operands number value with the second Operands
+		 * number value.
+		 * @param operand first operand.
+		 * @param operand2 second operand.
+		 * @return true if first operand is greater than second operand.
+		 */
+		private boolean compareDateOffstes(IArithmeticOperand operand, IArithmeticOperand operand2)
+		{
+			boolean isGreater = false;
+			IDateOffsetLiteral dateOffset1 = (IDateOffsetLiteral)operand;
+			int numSeconds1 = dateOffset1.getTimeInterval().numSeconds()*Integer.parseInt(dateOffset1.getOffset());
+			IDateOffsetLiteral dateOffset2 = (IDateOffsetLiteral)operand2;
+			int numSeconds2 = dateOffset2.getTimeInterval().numSeconds()*Integer.parseInt(dateOffset2.getOffset());
+			if(numSeconds1>numSeconds2)
+			{
+				isGreater=true;
+			}
+			return isGreater;
+		}
+
+
     }
 
     private class DefaultCFProc implements CFProc {
@@ -188,17 +321,21 @@ public class CustomFormulaProcessor {
             // irrelevant.
             if (relationalOperator == Between || relationalOperator == NotBetween) {
                 String res1 = basic.getString(formula);
-                String res2 = basic.getString(swapRhses(formula));
-                String logicOper = (relationalOperator == Between) ? " or " : " and ";
+                //String res2 = basic.getString(swapRhses(formula));
+                //String logicOper = (relationalOperator == Between) ? " or " : " and ";
                 // between :
                 // (lhs between rhs1, rhs2) or (lhs between rhs2,rhs1)
                 // notBetween :
                 // (lhs notBetween rhs1, rhs2) and (lhs notBetween rhs2,rhs1)
 
-                return brackets(res1) + logicOper + brackets(res2);
-            } else {
-                return basic.getString(formula);
+                //return brackets(res1) + logicOper + brackets(res2);
+                return brackets(res1);
             }
+			else
+			{
+				return basic.getString(formula);
+			}
+
         }
 
     }
@@ -289,7 +426,7 @@ public class CustomFormulaProcessor {
             formula = new DyExtnObjectCloner().clone(formula);
 //            ITerm rhs =  formula.getAllRhs().get(0);
 //            ITerm rhs2 = (ITerm)formula.getAllRhs().get(1);
-           
+
 //            if (offset == null) {
 //                subtract(rhs, roundingOffset(rhs));
 //                add(rhs2, roundingOffset(rhs2));
@@ -329,7 +466,7 @@ public class CustomFormulaProcessor {
         }
 
         private void addOpndToTerm(ITerm term, IArithmeticOperand opnd, ArithmeticOperator oper) {
-          if (opnd != null) 
+          if (opnd != null)
           {
                 term.addParantheses();
                 term.addOperand(conn(oper), opnd);
@@ -342,7 +479,7 @@ public class CustomFormulaProcessor {
 
         private IArithmeticOperand roundingOffset(ITerm term) {
             TimeInterval<?> timeInterval = findTimeInterval(term);
-            if (timeInterval == null) 
+            if (timeInterval == null)
             {
                 return null;
             }
