@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="query" basedir="." default="build.jar">
+	<property name="base.dir" value="." />
 	<property name="workarea.dir" location="workarea" />
 	<property name="classes.dir" location="${workarea.dir}/classes" />
 	<property name="src.dir" location="src" />
+	<property name="build.dir" location="${base.dir}/build">
+	</property>
 	<target name="clean">
 		<delete dir="${workarea.dir}" />
 	</target>
@@ -69,4 +72,12 @@
 		<replaceregexp file="${workarea.dir}/ddl/mysql.ddl" match="bit" replace="BOOLEAN" />
 	</target>
 
+	<target name="create_zip" depends="compile">
+		<delete>
+			<fileset dir="${build.dir}" includes="**/*" />
+		</delete>
+		<zip destfile="${build.dir}/query.zip">
+			<fileset dir="${src.dir}" includes="**/*" />
+		</zip>
+	</target>
 </project>
