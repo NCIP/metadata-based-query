@@ -5,6 +5,6 @@ package edu.wustl.common.querysuite.queryobject;
  * 
  * @author srinath_k
  */
-public interface IParameterizable {
+public interface IParameterizable extends IBaseQueryObject{
 
 }
