@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 package edu.wustl.common.querysuite.queryobject;
 
 import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
@@ -9,8 +10,11 @@ import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInt
  * @author chetan_patil
  * @created Oct 8, 2007, 3:04:09 PM
  */
-public interface IOutputAttribute extends IBaseQueryObject {
-    IExpression getExpression();
+public interface IOutputAttribute extends IBaseQueryObject, INameable
+{
 
-    QueryableAttributeInterface getAttribute();
+	IExpression getExpression();
+
+	QueryableAttributeInterface getAttribute();
+
 }

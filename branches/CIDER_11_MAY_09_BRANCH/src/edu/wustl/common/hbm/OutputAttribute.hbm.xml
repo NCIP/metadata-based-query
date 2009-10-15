@@ -16,6 +16,15 @@
 			</generator>
 		</id>
 
+		<property
+			name="name"
+			type="string"
+			update="true"
+			insert="true"
+			column="NAME"
+			length="255"
+			/>
+			
 		<many-to-one name="expression"
 			class="edu.wustl.common.querysuite.queryobject.impl.Expression"
 			cascade="save-update,persist" column="EXPRESSION_ID" />
