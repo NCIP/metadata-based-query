@@ -167,6 +167,13 @@ public class OutputAttribute extends BaseQueryObject implements IOutputAttribute
 	 */
 	public String getName()
 	{
+		//Following change is the temporary one since Onsite database is old one and currently
+		// we are not providing DML script to load default values for the name of outputAttribute
+		// which are already created
+		if (name == null || "".equals(name))
+		{
+			name = getAttribute().getName();
+		}
 		return name;
 	}
 
