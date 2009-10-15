@@ -118,7 +118,7 @@ create table QUERY_MINUS (IDENTIFIER bigint not null, primary key (IDENTIFIER));
 create table QUERY_MODEL_ASSOCIATION (IDENTIFIER bigint not null auto_increment, primary key (IDENTIFIER));
 create table QUERY_OPERAND (IDENTIFIER bigint not null auto_increment, OPND_TYPE varchar(255) not null, primary key (IDENTIFIER));
 create table QUERY_OPERATION (IDENTIFIER bigint not null auto_increment, OPERAND_ONE bigint, OPERAND_TWO bigint, primary key (IDENTIFIER));
-create table QUERY_OUTPUT_ATTRIBUTE (IDENTIFIER bigint not null auto_increment, EXPRESSION_ID bigint, ATTRIBUTE_ID bigint not null, PARAMETERIZED_QUERY_ID bigint, POSITION integer, DATA_VIEW_ID bigint, primary key (IDENTIFIER));
+create table QUERY_OUTPUT_ATTRIBUTE (IDENTIFIER bigint not null auto_increment, NAME varchar(255), EXPRESSION_ID bigint, ATTRIBUTE_ID bigint not null, PARAMETERIZED_QUERY_ID bigint, POSITION integer, DATA_VIEW_ID bigint, primary key (IDENTIFIER));
 create table QUERY_OUTPUT_TERM (IDENTIFIER bigint not null auto_increment, NAME varchar(255), TIME_INTERVAL varchar(255), TERM_ID bigint, primary key (IDENTIFIER));
 create table QUERY_PARAMETER (IDENTIFIER bigint not null auto_increment, NAME varchar(255), OBJECT_CLASS varchar(255), OBJECT_ID bigint, primary key (IDENTIFIER));
 create table QUERY_PARAMETERIZED_QUERY (IDENTIFIER bigint not null, primary key (IDENTIFIER));

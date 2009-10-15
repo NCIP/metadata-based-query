@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 package edu.wustl.common.querysuite.queryobject.impl;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -16,112 +17,165 @@ import edu.wustl.common.querysuite.queryobject.IOutputAttribute;
  * @hibernate.class table="QUERY_OUTPUT_ATTRIBUTE"
  * @hibernate.cache usage="read-write"
  */
-public class OutputAttribute extends BaseQueryObject implements IOutputAttribute {
-    private static final long serialVersionUID = 1L;
+public class OutputAttribute extends BaseQueryObject implements IOutputAttribute
+{
 
-    private IExpression expression;
+	private static final long serialVersionUID = 1L;
 
-    private QueryableAttributeInterface attribute;
+	private IExpression expression;
 
-    /** Default Constructor */
-    public OutputAttribute() {
+	private QueryableAttributeInterface attribute;
 
-    }
+	private String name;
 
-    /**
-     * Parameterized Constructor
-     * 
-     * @param expression
-     * @param attribute
-     */
-    public OutputAttribute(IExpression expression, QueryableAttributeInterface attribute) {
-        this.expression = expression;
-        this.attribute = attribute;
-    }
+	/** Default Constructor */
+	public OutputAttribute()
+	{
 
-    /**
-     * Name: Abhishek Mehta Reviewer Name : Deepti Bug ID: 5661 Patch ID: 5661_3
-     * See also: 1-7 Description : Making cascade none from cascade all
-     */
+	}
 
-    /**
-     * @return the expression
-     * 
-     * @hibernate.many-to-one column="EXPRESSIONID_ID"
-     *                        class="edu.wustl.common.querysuite.queryobject.impl.Expression"
-     *                        cascade="none" lazy="false"
-     */
-    public IExpression getExpression() {
-        return expression;
-    }
+	/**
+	 * Parameterized Constructor
+	 * 
+	 * @param expression
+	 * @param attribute
+	 */
+	public OutputAttribute(IExpression expression, QueryableAttributeInterface attribute)
+	{
+		this.expression = expression;
+		this.attribute = attribute;
+		name = attribute.getDisplayName();
+	}
 
-    /**
-     * @param expression the expression to set
-     */
-    public void setExpression(IExpression expression) {
-        this.expression = expression;
-    }
+	/**
+	 * Parameterized Constructor
+	 * @param name display name of attribute
+	 * @param expression
+	 * @param attribute
+	 */
+	public OutputAttribute(String name, IExpression expression,
+			QueryableAttributeInterface attribute)
+	{
+		this(expression, attribute);
+		this.name = name;
+	}
 
-    /**
-     * @return the attribute
-     */
-    public QueryableAttributeInterface getAttribute() {
-        return attribute;
-    }
+	/**
+	 * Name: Abhishek Mehta Reviewer Name : Deepti Bug ID: 5661 Patch ID: 5661_3
+	 * See also: 1-7 Description : Making cascade none from cascade all
+	 */
 
-    /**
-     * @param attribute the attribute to set
-     */
-    public void setAttribute(QueryableAttributeInterface attribute) {
-        this.attribute = attribute;
-    }
+	/**
+	 * @return the expression
+	 * 
+	 * @hibernate.many-to-one column="EXPRESSIONID_ID"
+	 *                        class="edu.wustl.common.querysuite.queryobject.impl.Expression"
+	 *                        cascade="none" lazy="false"
+	 */
+	public IExpression getExpression()
+	{
+		return expression;
+	}
 
-    /**
-     * Returns the identifier assigned to BaseQueryObject.
-     * 
-     * @return a unique id assigned to the Condition.
-     * 
-     * @hibernate.id name="id" column="IDENTIFIER" type="long" length="30"
-     *               unsaved-value="null" generator-class="native"
-     * @hibernate.generator-param name="sequence" value="OUTPUT_ATTRIBUTE_SEQ"
-     */
-    public Long getId() {
-        return id;
-    }
+	/**
+	 * @param expression the expression to set
+	 */
+	public void setExpression(IExpression expression)
+	{
+		this.expression = expression;
+	}
 
-    /**
-     * To check equality of the two object.
-     * 
-     * @param obj to be check for equality.
-     * @return true if objects are equals.
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object object) {
-        boolean isEqual = false;
+	/**
+	 * @return the attribute
+	 */
+	public QueryableAttributeInterface getAttribute()
+	{
+		return attribute;
+	}
 
-        if (this == object) {
-            isEqual = true;
-        } else if (object != null && this.getClass() == object.getClass()) {
-            OutputAttribute outputAtrribute = (OutputAttribute) object;
-            IExpression expression = outputAtrribute.getExpression();
-            
-            if (this.getExpression().equals(expression) && this.getAttribute().equals(outputAtrribute.getAttribute())) {
-                isEqual = true;
-            }
-        }
+	/**
+	 * @param attribute the attribute to set
+	 */
+	public void setAttribute(QueryableAttributeInterface attribute)
+	{
+		this.attribute = attribute;
+	}
 
-        return isEqual;
-    }
+	/**
+	 * Returns the identifier assigned to BaseQueryObject.
+	 * 
+	 * @return a unique id assigned to the Condition.
+	 * 
+	 * @hibernate.id name="id" column="IDENTIFIER" type="long" length="30"
+	 *               unsaved-value="null" generator-class="native"
+	 * @hibernate.generator-param name="sequence" value="OUTPUT_ATTRIBUTE_SEQ"
+	 */
+	@Override
+	public Long getId()
+	{
+		return id;
+	}
 
-    /**
-     * To get the HashCode for the object.
-     * 
-     * @return The hash code value for the object.
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-    	return new HashCodeBuilder().append(expression).append(attribute).toHashCode();
-    }
+	/**
+	 * To check equality of the two object.
+	 * 
+	 * @param obj to be check for equality.
+	 * @return true if objects are equals.
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object object)
+	{
+		boolean isEqual = false;
+
+		if (this == object)
+		{
+			isEqual = true;
+		}
+		else if (object != null && this.getClass() == object.getClass())
+		{
+			OutputAttribute outputAtrribute = (OutputAttribute) object;
+			IExpression expression = outputAtrribute.getExpression();
+
+			if (getExpression().equals(expression)
+					&& getAttribute().equals(outputAtrribute.getAttribute()))
+			{
+				isEqual = true;
+			}
+		}
+
+		return isEqual;
+	}
+
+	/**
+	 * To get the HashCode for the object.
+	 * 
+	 * @return The hash code value for the object.
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder().append(expression).append(attribute).toHashCode();
+	}
+
+	/** (non-Javadoc)
+	 * @see edu.wustl.common.querysuite.queryobject.INameable#getName()
+	 * @return name Display Name of output attribute
+	 * @hibernate.property name="name" column="NAME" type="string"
+	 *                     length="255"
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	/** (non-Javadoc)
+	 * @see edu.wustl.common.querysuite.queryobject.INameable#setName(java.lang.String)
+	 * @param name Display Name of output attribute
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 }
