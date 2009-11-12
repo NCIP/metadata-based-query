@@ -191,29 +191,7 @@ public class Condition extends BaseQueryObject implements ICondition {
         return new HashCodeBuilder().append(attribute).append(relationalOperator).toHashCode();
     }
 
-    /**
-     * To check whether two objects are equal.
-     * 
-     * @param obj reference to the object to be checked for equality.
-     * @return true if attribute, relational operator & values of the condition
-     *         are equal.
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj != null && this.getClass() == obj.getClass()) {
-            Condition condition = (Condition) obj;
-            if (attribute != null && attribute.equals(condition.attribute) && relationalOperator != null
-                    && relationalOperator.equals(condition.relationalOperator) && values.equals(condition.values)) {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
+ 
     /**
      * 
      * @return String representation of the object, in the format [attributeName
