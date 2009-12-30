@@ -54,6 +54,7 @@ drop sequence QUERY_OUTPUT_TERM_SEQ;
 drop sequence QUERY_PARAMETER_SEQ;
 drop sequence QUERY_SEQ;
 drop sequence QUERY_VIEW_SEQ;
+drop table QUERY_CURATED_QUERY cascade constraints;
 create table COMMONS_GRAPH (IDENTIFIER number(19,0) not null, primary key (IDENTIFIER));
 create table COMMONS_GRAPH_EDGE (IDENTIFIER number(19,0) not null, SOURCE_VERTEX_CLASS varchar2(255 char), SOURCE_VERTEX_ID number(19,0), TARGET_VERTEX_CLASS varchar2(255 char), TARGET_VERTEX_ID number(19,0), EDGE_CLASS varchar2(255 char), EDGE_ID number(19,0), primary key (IDENTIFIER));
 create table COMMONS_GRAPH_TO_EDGES (GRAPH_ID number(19,0) not null, EDGE_ID number(19,0) not null unique, primary key (GRAPH_ID, EDGE_ID));
@@ -94,6 +95,7 @@ create table QUERY_SUBEXPR_OPERAND (IDENTIFIER number(19,0) not null, EXPRESSION
 create table QUERY_TO_OUTPUT_TERMS (QUERY_ID number(19,0) not null, OUTPUT_TERM_ID number(19,0) not null unique, POSITION number(10,0) not null, primary key (QUERY_ID, POSITION));
 create table QUERY_TO_PARAMETERS (QUERY_ID number(19,0) not null, PARAMETER_ID number(19,0) not null unique, POSITION number(10,0) not null, primary key (QUERY_ID, POSITION));
 create table QUERY_UNION (IDENTIFIER number(19,0) not null, primary key (IDENTIFIER));
+create table QUERY_CURATED_QUERY (IDENTIFIER number(19,0) not null, primary key (IDENTIFIER));
 alter table COMMONS_GRAPH_TO_EDGES add constraint FKA6B0D8BAA0494B1D foreign key (GRAPH_ID) references COMMONS_GRAPH;
 alter table COMMONS_GRAPH_TO_EDGES add constraint FKA6B0D8BAFAEF80D foreign key (EDGE_ID) references COMMONS_GRAPH_EDGE;
 alter table COMMONS_GRAPH_TO_VERTICES add constraint FK2C4412F5A0494B1D foreign key (GRAPH_ID) references COMMONS_GRAPH;
@@ -145,6 +147,7 @@ alter table QUERY_TO_OUTPUT_TERMS add constraint FK8A70E2565E5B9430 foreign key 
 alter table QUERY_TO_PARAMETERS add constraint FK8060DAD739F0A314 foreign key (QUERY_ID) references QUERY_PARAMETERIZED_QUERY;
 alter table QUERY_TO_PARAMETERS add constraint FK8060DAD7F84B9027 foreign key (PARAMETER_ID) references QUERY_PARAMETER;
 alter table QUERY_UNION add constraint FK804AC458E201AD1D foreign key (IDENTIFIER) references QUERY_OPERATION;
+alter table QUERY_CURATED_QUERY add constraint FK70A5090486AD86FC foreign key (IDENTIFIER) references QUERY_ABSTRACT_QUERY;
 create sequence COMMONS_GRAPH_EDGE_SEQ;
 create sequence COMMONS_GRAPH_SEQ;
 create sequence QUERY_BASE_EXPRESSION_SEQ;
