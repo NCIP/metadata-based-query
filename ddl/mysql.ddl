@@ -89,6 +89,7 @@ drop table if exists QUERY_SUBEXPR_OPERAND;
 drop table if exists QUERY_TO_OUTPUT_TERMS;
 drop table if exists QUERY_TO_PARAMETERS;
 drop table if exists QUERY_UNION;
+drop table if exists QUERY_CURATED_QUERY;
 create table COMMONS_GRAPH (IDENTIFIER bigint not null auto_increment, primary key (IDENTIFIER));
 create table COMMONS_GRAPH_EDGE (IDENTIFIER bigint not null auto_increment, SOURCE_VERTEX_CLASS varchar(255), SOURCE_VERTEX_ID bigint, TARGET_VERTEX_CLASS varchar(255), TARGET_VERTEX_ID bigint, EDGE_CLASS varchar(255), EDGE_ID bigint, primary key (IDENTIFIER));
 create table COMMONS_GRAPH_TO_EDGES (GRAPH_ID bigint not null, EDGE_ID bigint not null unique, primary key (GRAPH_ID, EDGE_ID));
@@ -129,6 +130,7 @@ create table QUERY_SUBEXPR_OPERAND (IDENTIFIER bigint not null, EXPRESSION_ID bi
 create table QUERY_TO_OUTPUT_TERMS (QUERY_ID bigint not null, OUTPUT_TERM_ID bigint not null unique, POSITION integer not null, primary key (QUERY_ID, POSITION));
 create table QUERY_TO_PARAMETERS (QUERY_ID bigint not null, PARAMETER_ID bigint not null unique, POSITION integer not null, primary key (QUERY_ID, POSITION));
 create table QUERY_UNION (IDENTIFIER bigint not null, primary key (IDENTIFIER));
+create table QUERY_CURATED_QUERY (IDENTIFIER bigint not null, primary key (IDENTIFIER));
 alter table COMMONS_GRAPH_TO_EDGES add index FKA6B0D8BAA0494B1D (GRAPH_ID), add constraint FKA6B0D8BAA0494B1D foreign key (GRAPH_ID) references COMMONS_GRAPH (IDENTIFIER);
 alter table COMMONS_GRAPH_TO_EDGES add index FKA6B0D8BAFAEF80D (EDGE_ID), add constraint FKA6B0D8BAFAEF80D foreign key (EDGE_ID) references COMMONS_GRAPH_EDGE (IDENTIFIER);
 alter table COMMONS_GRAPH_TO_VERTICES add index FK2C4412F5A0494B1D (GRAPH_ID), add constraint FK2C4412F5A0494B1D foreign key (GRAPH_ID) references COMMONS_GRAPH (IDENTIFIER);
@@ -180,3 +182,5 @@ alter table QUERY_TO_OUTPUT_TERMS add index FK8A70E2565E5B9430 (OUTPUT_TERM_ID),
 alter table QUERY_TO_PARAMETERS add index FK8060DAD739F0A314 (QUERY_ID), add constraint FK8060DAD739F0A314 foreign key (QUERY_ID) references QUERY_PARAMETERIZED_QUERY (IDENTIFIER);
 alter table QUERY_TO_PARAMETERS add index FK8060DAD7F84B9027 (PARAMETER_ID), add constraint FK8060DAD7F84B9027 foreign key (PARAMETER_ID) references QUERY_PARAMETER (IDENTIFIER);
 alter table QUERY_UNION add index FK804AC458E201AD1D (IDENTIFIER), add constraint FK804AC458E201AD1D foreign key (IDENTIFIER) references QUERY_OPERATION (IDENTIFIER);
+alter table QUERY_CURATED_QUERY add index FK70A5090486AD86FC (IDENTIFIER), add constraint FK70A5090486AD86FC foreign key (IDENTIFIER) references QUERY_ABSTRACT_QUERY (IDENTIFIER);
+
