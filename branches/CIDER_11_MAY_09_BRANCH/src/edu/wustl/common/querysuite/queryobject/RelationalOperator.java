@@ -16,7 +16,7 @@ public enum RelationalOperator {
             "Is Null"), IsNotNull(0, "Is Not Null"), LessThan(1, "Less than"), LessThanOrEquals(1,
             "Less than or Equal to"), GreaterThan(1, "Greater than"), GreaterThanOrEquals(1, "Greater than or Equal to"), In(
             Integer.MAX_VALUE, "In"), Contains(1, "Contains"), StartsWith(1, "Starts With"), EndsWith(1, "Ends With"), NotIn(
-            Integer.MAX_VALUE, "Not In");
+            Integer.MAX_VALUE, "Not In"),NotContains(1, "Not Contains");
 
     public static final Set<RelationalOperator> NUMERIC_OPERATORS;
 
