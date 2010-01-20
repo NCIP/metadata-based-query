@@ -4,10 +4,15 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false">
-	
+
 	<query name="getParameterizedQueriesDetails">
 		select new edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery (query.id, query.name, query.description, query.type)
 			from edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery query
+	</query>
+
+	<query name="getAbstractQueriesDetails">
+		select new edu.wustl.common.querysuite.queryobject.impl.AbstractQuery (query.id, query.name, query.description, query.type)
+			from edu.wustl.common.querysuite.queryobject.impl.AbstractQuery query
 	</query>
 
 </hibernate-mapping>
