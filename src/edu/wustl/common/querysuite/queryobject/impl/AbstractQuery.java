@@ -9,7 +9,31 @@ import edu.wustl.common.querysuite.queryobject.IAbstractQuery;
  * @author chetan_patil
  * Class created for the model changes for Composite Query.
  */
-public class AbstractQuery extends BaseQueryObject implements IAbstractQuery {
+public class AbstractQuery extends BaseQueryObject implements IAbstractQuery
+{
+	 /**
+     * Default Constructor
+     */
+    public AbstractQuery()
+    {
+
+    }
+
+	  /**
+     * AbstractQuery Constructor.
+     * This constructor will be used by Hibernate internally.
+     *
+     * @param id
+     * @param name
+     * @param description
+     * @param type
+     */
+    public AbstractQuery(Long id, String name, String description, String type) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
     /** Default serial version id */
     private static final long serialVersionUID = 1L;
 
@@ -24,13 +48,13 @@ public class AbstractQuery extends BaseQueryObject implements IAbstractQuery {
 
     /** Date of creation */
     protected Date createdDate;
-    
+
     /** Date of updation */
     protected Date updationDate;
 
     /** The identifier of the creator/user */
     protected Long createdBy;
-    
+
     /** The identifier of the updator/user */
     protected Long updatedBy;
 
@@ -131,7 +155,7 @@ public class AbstractQuery extends BaseQueryObject implements IAbstractQuery {
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
-    
+
     /**
      * @return the updatedBy
      *
