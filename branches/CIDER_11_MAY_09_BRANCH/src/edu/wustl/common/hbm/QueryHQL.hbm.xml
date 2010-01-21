@@ -10,9 +10,4 @@
 			from edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery query
 	</query>
 
-	<query name="getAbstractQueriesDetails">
-		select new edu.wustl.common.querysuite.queryobject.impl.AbstractQuery (query.id, query.name, query.description, query.type)
-			from edu.wustl.common.querysuite.queryobject.impl.AbstractQuery query
-	</query>
-
 </hibernate-mapping>
