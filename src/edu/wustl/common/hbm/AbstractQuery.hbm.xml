@@ -76,7 +76,6 @@
             length="30"
             not-null="true"
         />
-        
 
 	<joined-subclass
 			name="edu.wustl.common.querysuite.queryobject.impl.Query"
@@ -136,13 +135,6 @@
            insert="true"
            column="OPERATION_ID"
        />
-	</joined-subclass>
-
-	<joined-subclass
-			name="edu.wustl.common.querysuite.queryobject.impl.CuratedQuery"
-			table="QUERY_CURATED_QUERY" dynamic-update="false"
-			dynamic-insert="false">
-			<key column="IDENTIFIER" />
 	</joined-subclass>
 
 	</class>
