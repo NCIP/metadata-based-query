@@ -34,6 +34,9 @@
 			dynamic-insert="false">
 			<key column="IDENTIFIER" />
 
+			<property name="showTree" type="boolean" update="true" insert="true"
+				column="SHOW_TREE" unique="false" />
+
 			<property name="name" type="string" update="true" insert="true"
 				column="QUERY_NAME" length="255" unique="true" />
 

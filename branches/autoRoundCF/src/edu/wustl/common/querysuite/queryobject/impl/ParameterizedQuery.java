@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.wustl.common.querysuite.queryobject.impl;
 
@@ -15,7 +15,7 @@ import edu.wustl.common.util.Identifiable;
 /**
  * @author chetan_patil
  * @created Aug 31, 2007, 4:22:00 PM
- * 
+ *
  * @hibernate.joined-subclass table="QUERY_PARAMETERIZED_QUERY"
  * @hibernate.joined-subclass-key column="IDENTIFIER"
  */
@@ -28,7 +28,21 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     private String description;
 
-    private List<IParameter<?>> parameters;
+    private Boolean showTree=true;
+
+
+	public Boolean getShowTree()
+	{
+		return showTree;
+	}
+
+
+	public void setShowTree(Boolean showTree)
+	{
+		this.showTree = showTree;
+	}
+
+	private List<IParameter<?>> parameters;
 
     /**
      * Default Constructor
@@ -40,7 +54,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
     /**
      * Parameterized Constructor. This constructor will be used by Hibernate
      * internally.
-     * 
+     *
      * @param id
      * @param name
      * @param description
@@ -53,7 +67,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * Parameterized Constructor
-     * 
+     *
      * @param query
      */
     public ParameterizedQuery(IQuery query) {
@@ -63,7 +77,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * Parameterized Constructor
-     * 
+     *
      * @param name
      * @param description
      * @param query
@@ -85,7 +99,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * @see edu.wustl.common.querysuite.queryobject.IDescribable#getName()
-     * 
+     *
      * @hibernate.property name="name" column="QUERY_NAME" type="string"
      *                     length="255" unique="true"
      */
@@ -102,7 +116,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * @see edu.wustl.common.querysuite.queryobject.IDescribable#getDescription()
-     * 
+     *
      * @hibernate.property name="description" column="DESCRIPTION" type="string"
      *                     length="1024"
      */
@@ -119,7 +133,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * @return the outputAttributeList
-     * 
+     *
      * @hibernate.list name="outputAttributeList" table="OUTPUT_ATTRIBUTES"
      *                 cascade="all-delete-orphan" inverse="false" lazy="false"
      * @hibernate.collection-key column="PARAMETERIZED_QUERY_ID"
@@ -143,7 +157,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * This method adds a given OutputAttribute into the OutputAtributeList.
-     * 
+     *
      * @param outputAttribute
      * @return
      */
@@ -159,7 +173,7 @@ public class ParameterizedQuery extends Query implements IParameterizedQuery, Id
 
     /**
      * This method removes a given OutputAttribute from the OutputAtributeList
-     * 
+     *
      * @param outputAttribute
      * @return
      */
