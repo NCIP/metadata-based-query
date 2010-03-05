@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import edu.common.dynamicextensions.domaininterface.AssociationInterface;
 import edu.common.dynamicextensions.domaininterface.EntityInterface;
-import edu.common.dynamicextensions.util.global.Constants.AssociationDirection;
+import edu.common.dynamicextensions.util.global.DEConstants.AssociationDirection;
 import edu.wustl.common.querysuite.metadata.associations.IIntraModelAssociation;
 
 /**
@@ -31,7 +31,7 @@ public class IntraModelAssociation extends ModelAssociation implements IIntraMod
 
     /**
      * Parameterized Constructor.
-     * 
+     *
      * @param dynamicExtensionsAssociation
      */
     public IntraModelAssociation(AssociationInterface dynamicExtensionsAssociation) {
@@ -108,7 +108,7 @@ public class IntraModelAssociation extends ModelAssociation implements IIntraMod
     /**
      * To check equality of the two object. it will check equality based on
      * dynamicExtensionsAssociation.
-     * 
+     *
      * @param obj to be check for equality.
      * @return true if objects are equals.
      * @see java.lang.Object#equals(java.lang.Object)
@@ -132,7 +132,7 @@ public class IntraModelAssociation extends ModelAssociation implements IIntraMod
     /**
      * To get the HashCode for the object. It will be calculated based on
      * dynamicExtensionsAssociation.
-     * 
+     *
      * @return The hash code value for the object.
      * @see java.lang.Object#hashCode()
      */
