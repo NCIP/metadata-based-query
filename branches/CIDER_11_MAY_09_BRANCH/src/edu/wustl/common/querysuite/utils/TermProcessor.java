@@ -3,7 +3,7 @@ package edu.wustl.common.querysuite.utils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import edu.wustl.common.querysuite.factory.QueryObjectFactory;
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.ArithmeticOperator;
 import edu.wustl.common.querysuite.queryobject.DSInterval;
 import edu.wustl.common.querysuite.queryobject.IArithmeticOperand;

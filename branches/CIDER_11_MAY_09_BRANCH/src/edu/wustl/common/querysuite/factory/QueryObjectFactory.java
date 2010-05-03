@@ -10,8 +10,8 @@ import edu.common.dynamicextensions.domaininterface.DateTypeInformationInterface
 import edu.common.dynamicextensions.domaininterface.NumericTypeInformationInterface;
 import edu.wustl.common.querysuite.metadata.associations.IIntraModelAssociation;
 import edu.wustl.common.querysuite.metadata.associations.impl.IntraModelAssociation;
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.ArithmeticOperator;
 import edu.wustl.common.querysuite.queryobject.ICondition;
 import edu.wustl.common.querysuite.queryobject.IConnector;

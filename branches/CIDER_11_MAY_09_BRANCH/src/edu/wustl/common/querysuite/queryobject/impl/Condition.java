@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.ICondition;
 import edu.wustl.common.querysuite.queryobject.RelationalOperator;
 

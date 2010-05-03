@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.IQueryEntity;
 
 /**

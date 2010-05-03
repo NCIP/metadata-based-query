@@ -1,6 +1,6 @@
 package edu.wustl.common.querysuite.queryobject.impl;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.IDateOffsetAttribute;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.TermType;

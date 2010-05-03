@@ -1,7 +1,8 @@
 
 package edu.wustl.common.querysuite.queryobject;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableObjectInterface;
+
 
 /**
  * anything that implements/extends this interface will finally be

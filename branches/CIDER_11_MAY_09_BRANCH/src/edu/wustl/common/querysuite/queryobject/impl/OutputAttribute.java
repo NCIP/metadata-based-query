@@ -6,7 +6,7 @@ package edu.wustl.common.querysuite.queryobject.impl;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
 import edu.wustl.common.querysuite.queryobject.IExpression;
 import edu.wustl.common.querysuite.queryobject.IOutputAttribute;
 

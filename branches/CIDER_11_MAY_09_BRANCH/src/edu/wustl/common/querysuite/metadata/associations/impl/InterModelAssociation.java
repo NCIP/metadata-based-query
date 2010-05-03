@@ -4,7 +4,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import edu.common.dynamicextensions.domaininterface.EntityInterface;
 import edu.wustl.common.querysuite.metadata.associations.IQueryableObjectMetadataInterModelAssociation;
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
 
 /**
  * This stores all the inter model connections present between given pair of
