@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableObjectInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableObjectInterface;
 import edu.wustl.common.querysuite.queryobject.IOutputEntity;
 
 /**

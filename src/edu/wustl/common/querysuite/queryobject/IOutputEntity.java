@@ -3,7 +3,8 @@ package edu.wustl.common.querysuite.queryobject;
 
 import java.util.List;
 
-import edu.wustl.common.querysuite.querableobjectInterface.QueryableAttributeInterface;
+import edu.wustl.common.querysuite.querableobjectinterface.QueryableAttributeInterface;
+
 
 /**
  * @author prafull_kadam
