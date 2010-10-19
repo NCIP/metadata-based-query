@@ -6,14 +6,14 @@ import java.util.Set;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import edu.common.dynamicextensions.domaininterface.EntityInterface;
-import edu.common.dynamicextensions.util.global.DEConstants.InheritanceStrategy;
+import edu.common.dynamicextensions.util.global.Constants.InheritanceStrategy;
 import edu.wustl.common.querysuite.queryobject.IQueryEntity;
 
 /**
  * @author prafull_kadam
  * @author chetan_patil
  * @created Aug 9, 2007, 4:02:13 PM
- *
+ * 
  * @hibernate.class table="QUERY_QUERY_ENTITY"
  * @hibernate.cache usage="read-write"
  */
@@ -31,7 +31,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
 
     /**
      * TO initialize entityInterface object for this object.
-     *
+     * 
      * @param entityInterface The Dynamic Extension entity reference associated
      *            with this object.
      */
@@ -41,9 +41,9 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
 
     /**
      * Returns the identifier assigned to BaseQueryObject.
-     *
+     * 
      * @return a unique id assigned to the Condition.
-     *
+     * 
      * @hibernate.id name="id" column="IDENTIFIER" type="long" length="30"
      *               unsaved-value="null" generator-class="native"
      * @hibernate.generator-param name="sequence" value="QUERY_ENTITY_SEQ"
@@ -68,7 +68,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
 
     /**
      * This method return the Dynamic Extension Entity reference.
-     *
+     * 
      * @return The Dynamic Extension Entity reference corresponding to the
      *         QueryEntity.
      * @see edu.wustl.common.querysuite.queryobject.IQueryEntity#getDynamicExtensionsEntity()
@@ -83,7 +83,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
 
     /**
      * To check whether two objects are equal.
-     *
+     * 
      * @param obj reference to the object to be checked for equality.
      * @return true if entityInterface of object is equal.
      * @see java.lang.Object#equals(java.lang.Object)
@@ -105,7 +105,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
     /**
      * To get the HashCode for the object. It will be calculated based on
      * entityInterface.
-     *
+     * 
      * @return The hash code value for the object.
      * @see java.lang.Object#hashCode()
      */
@@ -128,7 +128,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
      * is used to identify Pseudo-AND condition. Returns true if the two
      * entities belongs to the same class heirarchy. i.e. class heirarchy having
      * TABLE_PER_HEIRARCHY as inheritance strategy.
-     *
+     * 
      * @param queryEntity The QueryEntity to check.
      * @return true if the two entities can be pseudoAnded.
      */
@@ -159,7 +159,7 @@ public class QueryEntity extends BaseQueryObject implements IQueryEntity {
      * TO get the parent heirarchy of the given entity. The returned set will
      * contains all the parent entities having TABLE_PER_HEIRARCHY as
      * Inheritance strategy for their derived entity.
-     *
+     * 
      * @param entityInterface The reference to Entity.
      * @return the set of Parent entities with inheritance strategy as
      *         TABLE_PER_HEIRARCHY.

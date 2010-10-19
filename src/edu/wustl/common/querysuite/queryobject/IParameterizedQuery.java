@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 package edu.wustl.common.querysuite.queryobject;
 
@@ -15,6 +15,4 @@ public interface IParameterizedQuery extends IQuery, INameable, IDescribable {
     void setOutputAttributeList(List<IOutputAttribute> outputAttributeList);
 
     List<IParameter<?>> getParameters();
-    Boolean getShowTree();
-    void setShowTree(Boolean showTree);
 }
