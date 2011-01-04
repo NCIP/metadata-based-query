@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="query" basedir="." default="build.jar" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property file="./src/conf/query.properties" />
+	<property name="base.dir" value="."/>
+	<property name="software.dir" value=".."/>
+	<property name="temp.dir" value="${software.dir}/target/temp"/>
+	<property name="src.classes.dir" value="${temp.dir}/classes/src" />
+	<property name="src.dir" location="${base.dir}/src/java" />
+	<property name="test.src.dir" location="${base.dir}/test/unit/java" />
+	<property name="lib.dir" value="${base.dir}/src/lib"/>
+	<property name="local-ivy-repo.dir" value="${software.dir}/local-ivy-repo"/>
+
+	<loadfile property="dist.revision" srcFile="./.svn/entries">
+		<filterchain>
+			<headfilter lines="1" skip="4" />
+		</filterchain>
+	</loadfile>
+
+	<target name="clean">
+		<delete dir="${src.classes.dir}" />
+		<delete dir="${test.classes.dir}" />
+	</target>
+
+	<path id="compile.classpath">
+		<pathelement location="conf" />
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+	<target name="compile" depends="clean,retrieve-ivy-files">
+		<mkdir dir="${src.classes.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${src.classes.dir}" fork="true" memoryMaximumSize="1200m" includes="**/*.java" debug="on" deprecation="true" classpathref="compile.classpath" failonerror="true" nowarn="on" target="1.5" />
+		<copy todir="${src.classes.dir}">
+			<fileset dir="${src.dir}" includes="**/*.hbm.xml" />
+		</copy>
+	</target>
+
+	<target name="build.jar" depends="compile">
+			<tstamp />
+		<jar jarfile="${local-ivy-repo.dir}/query.jar" basedir="${src.classes.dir}">
+			<manifest>
+				<section name="${query.jar.details}">
+					<attribute name="Version" value="${query.jar.version}" />
+					<attribute name="Built-By" value="${query.jar.creator}" />
+					<attribute name="Built-At-Time" value="${TODAY} ${TSTAMP}" />
+					<attribute name="SVN-URL" value="${dist.revision}" />
+				</section>
+			</manifest>
+		</jar>
+	</target>
+	<target name="dist" depends="build.jar"/>
+	<path id="toolslib">
+		<path location="${src.classes.dir}" />
+		<path location="${lib.dir}/hibernate3.jar" />
+		<path location="${lib.dir}/metadata.jar" />
+		<path location="${lib.dir}/washu-commons.jar" />
+		<path location="${lib.dir}/DynamicExtensions.jar" />
+		<path location="${lib.dir}/ant/hibernate-tools.jar" />
+		<path location="${lib.dir}/ant/commons-logging-1.0.4.jar" />
+		<path location="${lib.dir}/ant/dom4j-1.6.jar" />
+		<path location="${lib.dir}/ant/freemarker.jar" />
+		<path location="${lib.dir}/ant/commons-collections-2.1.1.jar" />
+		<path location="${lib.dir}/ant/mysql-connector-java-3.0.16-ga-bin.jar" />
+		<path location="${lib.dir}/ant/jta.jar" />
+	</path>
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="toolslib" />
+<!--
+	<target name="createDDL" depends="compile">
+		<mkdir dir="${workarea.dir}/ddl"/>
+		<hibernatetool destdir="${workarea.dir}/ddl">
+			<configuration configurationfile="${base.dir}/src/conf/mysql.cfg.xml" />
+			<hbm2ddl export="false" drop="true" outputfilename="mysql.ddl" />
+		</hibernatetool>
+		<replaceregexp file="${workarea.dir}/ddl/mysql.ddl" match="bit" replace="BOOLEAN" flags="g" />
+		<hibernatetool destdir="${workarea.dir}/ddl">
+			<configuration configurationfile="${base.dir}/src/conf/oracle.cfg.xml" />
+			<hbm2ddl export="false" drop="true" outputfilename="oracle.ddl" />
+		</hibernatetool>
+	</target>
+
+	<target name="exportSchema" depends="compile">
+		<hibernatetool destdir="${workarea.dir}/ddl">
+			<configuration configurationfile="${base.dir}/src/conf/mysql.cfg.xml" />
+			<hbm2ddl export="true" drop="false" outputfilename="mysql.ddl" />
+		</hibernatetool>
+		<replaceregexp file="${workarea.dir}/ddl/mysql.ddl" match="bit" replace="BOOLEAN" />
+	</target>
+-->
+	<!--ivy:retrieve related tags start here-->
+		<property name="common.dir" location="${software.dir}/common" />
+		<property name="target.dir" location="${software.dir}/target" />
+
+
+		<property name="bda-utils.dir" location="${target.dir}/bda-utils" />
+			<property name="project.properties.file" value="${software.dir}/build/project.properties" />
+			<property file="${project.properties.file}" />
+			<import file="${bda-utils.dir}/bda-build-utils-${bda.version}.xml" />
+
+
+			<path id="bda-utils.classpath">
+				<fileset dir="${bda-utils.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</path>
+			<path id="ivy.classpath">
+				<fileset dir="${target.dir}/lib">
+					<include name="ivy-2.0.0.jar" />
+				</fileset>
+			</path>
+
+			<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath" />
+			<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"  classpathref="bda-utils.classpath"/>
+			<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="bda-utils.classpath"/>
+
+		<property name="ivy.settings.file" location="${common.dir}/ivy/cbiit-ivy-settings.xml" />
+				<target name="ivy-settings">
+					<property name="ivy.dep.file" value="${common.dir}/bda-download/ivy-bda.xml"/>
+					<ivy:settings file="${ivy.settings.file}"/>
+				</target>
+			<target name="retrieve-ivy-files" depends="ivy-settings"  description="Updates the local ivy repository">
+				<ivy:resolve refresh="true" conf="app_lib"/>
+				<ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" conf="app_lib" />
+
+			</target>
+
+		<!--ivy:retrieve related tags end here-->
+
+</project>
