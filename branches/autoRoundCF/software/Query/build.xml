@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="query" basedir="." default="build.jar" xmlns:ivy="antlib:org.apache.ivy.ant">
-	<property file="./src/conf/query.properties" />
+<project name="query" basedir="." default="dist" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property file="./src/conf/query.properties" />
 	<property name="base.dir" value="."/>
 	<property name="software.dir" value=".."/>
 	<property name="temp.dir" value="${software.dir}/target/temp"/>
@@ -46,8 +47,10 @@
 			</manifest>
 		</jar>
 	</target>
+
 	<target name="dist" depends="build.jar"/>
-	<path id="toolslib">
+
+    <path id="toolslib">
 		<path location="${src.classes.dir}" />
 		<path location="${lib.dir}/hibernate3.jar" />
 		<path location="${lib.dir}/metadata.jar" />
