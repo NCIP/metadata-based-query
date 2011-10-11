@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="query" basedir="." default="dist" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <property file="./src/conf/query.properties" />
-	<property name="base.dir" value="."/>
-	<property name="software.dir" value=".."/>
+    <property file="${basedir}/conf/query.properties" />
+	<property name="software.dir" value="${basedir}/.."/>
 	<property name="temp.dir" value="${software.dir}/target/temp"/>
 	<property name="src.classes.dir" value="${temp.dir}/classes/src" />
-	<property name="src.dir" location="${base.dir}/src/java" />
-	<property name="test.src.dir" location="${base.dir}/test/unit/java" />
-	<property name="lib.dir" value="${base.dir}/src/lib"/>
+	<property name="src.dir" location="${basedir}/src/main/java" />
+	<property name="test.src.dir" location="${basedir}/src/test/java" />
+	<property name="lib.dir" value="${basedir}/src/lib"/>
 	<property name="local-ivy-repo.dir" value="${software.dir}/local-ivy-repo"/>
+	<property name="dist.dir" value="${basedir}/dist"/>
 
 	<loadfile property="dist.revision" srcFile="./.svn/entries">
 		<filterchain>
@@ -17,16 +17,21 @@
 		</filterchain>
 	</loadfile>
 
+    <target name="init">
+        <mkdir dir="${dist.dir}" />
+    </target>
+
 	<target name="clean">
+        <delete dir="${dist.dir}" />
 		<delete dir="${src.classes.dir}" />
-		<delete dir="${test.classes.dir}" />
 	</target>
 
 	<path id="compile.classpath">
 		<pathelement location="conf" />
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
-	<target name="compile" depends="clean,retrieve-ivy-files">
+
+	<target name="compile" depends="clean, init, retrieve-ivy-files">
 		<mkdir dir="${src.classes.dir}"/>
 		<javac srcdir="${src.dir}" destdir="${src.classes.dir}" fork="true" memoryMaximumSize="1200m" includes="**/*.java" debug="on" deprecation="true" classpathref="compile.classpath" failonerror="true" nowarn="on" target="1.5" />
 		<copy todir="${src.classes.dir}">
@@ -46,6 +51,7 @@
 				</section>
 			</manifest>
 		</jar>
+        <copy file="${local-ivy-repo.dir}/query.jar" todir="${dist.dir}" />
 	</target>
 
 	<target name="dist" depends="build.jar"/>
