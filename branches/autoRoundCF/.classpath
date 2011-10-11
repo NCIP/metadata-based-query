@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="software/Query/src/test/java"/>
+	<classpathentry kind="src" path="software/Query/conf"/>
+	<classpathentry kind="src" path="software/Query/src/test/resources"/>
+	<classpathentry kind="src" path="software/Query/src/main/resources"/>
+	<classpathentry kind="src" path="software/Query/src/main/web"/>
+	<classpathentry kind="src" path="software/Query/src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/dom4j-1.6.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/hibernate-tools.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/jta.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/mysql-connector-java-3.0.16-ga-bin.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/ant/oracleDriver.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/asm.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/cglib-2.1.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/dom4j-1.6.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/hamcrest-library-1.1.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/jbossall-client.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/jmock-2.4.0.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/test/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/DynamicExtensions.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/metadata.jar"/>
+	<classpathentry kind="lib" path="software/Query/src/lib/washu-commons-1.1.7.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
