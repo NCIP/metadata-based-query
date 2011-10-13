@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="query" basedir="." default="dist" xmlns:ivy="antlib:org.apache.ivy.ant">
 
+    <import file="ivy-targets.xml" />
+
     <property file="${basedir}/conf/query.properties" />
 	<property name="software.dir" value="${basedir}/.."/>
 	<property name="temp.dir" value="${software.dir}/target/temp"/>
