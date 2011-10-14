@@ -9,7 +9,7 @@
 	<property name="src.classes.dir" value="${temp.dir}/classes/src" />
 	<property name="src.dir" location="${basedir}/src/main/java" />
 	<property name="test.src.dir" location="${basedir}/src/test/java" />
-	<property name="lib.dir" value="${basedir}/src/lib"/>
+	<property name="lib.dir" value="${basedir}/lib"/>
 	<property name="local-ivy-repo.dir" value="${software.dir}/local-ivy-repo"/>
 	<property name="dist.dir" value="${basedir}/dist"/>
 
@@ -54,23 +54,17 @@
         <copy file="${local-ivy-repo.dir}/query.jar" todir="${dist.dir}" />
 	</target>
 
-	<target name="dist" depends="build.jar"/>
+	<target name="dist" depends="postResolve, build.jar"/>
 
     <path id="toolslib">
-		<path location="${src.classes.dir}" />
-		<path location="${lib.dir}/hibernate3.jar" />
-		<path location="${lib.dir}/metadata.jar" />
-		<path location="${lib.dir}/washu-commons.jar" />
-		<path location="${lib.dir}/DynamicExtensions.jar" />
-		<path location="${lib.dir}/ant/hibernate-tools.jar" />
-		<path location="${lib.dir}/ant/commons-logging-1.0.4.jar" />
-		<path location="${lib.dir}/ant/dom4j-1.6.jar" />
-		<path location="${lib.dir}/ant/freemarker.jar" />
-		<path location="${lib.dir}/ant/commons-collections-2.1.1.jar" />
-		<path location="${lib.dir}/ant/mysql-connector-java-3.0.16-ga-bin.jar" />
-		<path location="${lib.dir}/ant/jta.jar" />
+            <fileset dir="${lib.dir}">
+                <include name="*.jar" />
+            </fileset>
 	</path>
-	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="toolslib" />
+
+    <target name="postResolve" depends="resolve">
+        <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="toolslib" />
+    </target>
 <!--
 	<target name="createDDL" depends="compile">
 		<mkdir dir="${workarea.dir}/ddl"/>
