@@ -1,5 +1,12 @@
 <ivy-module version="2.0">
-    <info organisation="gov.nih.nci.catissue" module="query"/>
+	
+	<info organisation="gov.nih.nci.catissue" module="query" revision="${query.jar.version}" status="integration" />
+	
+	<publications>
+		<artifact name="query" ext="jar" type="jar" />
+		<artifact name="query" ext="pom" type="pom" />
+	</publications>
+	
     <dependencies>
 
 <!--
