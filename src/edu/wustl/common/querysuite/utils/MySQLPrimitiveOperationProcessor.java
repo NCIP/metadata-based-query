@@ -6,7 +6,7 @@ import edu.wustl.common.querysuite.queryobject.IDateLiteral;
 class MySQLPrimitiveOperationProcessor extends SQLPrimitiveOperationProcessor {
     private static final String dateFormat="%Y-%m-%d";
     private static final String strToDateFunc="STR_TO_DATE";
-    
+
     @Override
     String getDateDiffString(String leftStr, String rightStr) {
         return "timestampdiff(SECOND, " + rightStr + ", " + leftStr + ")";
@@ -16,7 +16,10 @@ class MySQLPrimitiveOperationProcessor extends SQLPrimitiveOperationProcessor {
     String dateToTimestamp(String s) {
         return "timestamp(" + s + ")";
     }
-
+    String anyDataTypeToString(String s)
+    {
+    	return " convert("+s+", char )";
+    }
     @Override
     String getTimeOffsetOpString(String timeStr, String offsetStr, ArithmeticOperator operator) {
         if (operator == ArithmeticOperator.Minus) {
@@ -24,10 +27,10 @@ class MySQLPrimitiveOperationProcessor extends SQLPrimitiveOperationProcessor {
         }
         return "timestampadd(SECOND, " + offsetStr + ", " + timeStr + ")";
     }
-    
+
     @Override
     String modifyDateLiteral(IDateLiteral s) {
         return strToDateFunc + "('" + standardDateFormat(s) + "', '" + dateFormat + "')";
     }
-   
+
 }

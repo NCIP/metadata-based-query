@@ -9,12 +9,12 @@ import edu.wustl.common.querysuite.queryobject.IQuery;
 
 /**
  * The IQuery implementation class.
- * 
+ *
  * @author Mandar Shidhore
  * @author chetan_patil
  * @version 1.0
  * @created 12-Oct-2006 15.07.04 AM
- * 
+ *
  * @hibernate.class table="QUERY"
  * @hibernate.cache usage="read-write"
  */
@@ -25,6 +25,26 @@ public class Query extends BaseQueryObject implements IQuery {
 
     private List<IOutputTerm> outputTerms;
 
+    private Boolean isNormalizedResultQuery=false;
+
+    /**
+     * This method with specify if the results view should be shown in normalized view or denormalized view.
+     *
+	 * @hibernate.property name="isNormalizedResultQuery" type="boolean" column="IS_NORMALIZED_VIEW"
+	 * @return true if Normalized results to be shown. is to be cached
+	 */
+
+    public Boolean getIsNormalizedResultQuery()
+    {
+    	return isNormalizedResultQuery;
+    }
+
+
+    public void setIsNormalizedResultQuery(Boolean isNormalized)
+    {
+    	isNormalizedResultQuery = isNormalized;
+
+    }
     /**
      * Default Constructor
      */
@@ -34,9 +54,9 @@ public class Query extends BaseQueryObject implements IQuery {
 
     /**
      * Returns the identifier assigned to BaseQueryObject.
-     * 
+     *
      * @return a unique id assigned to the Condition.
-     * 
+     *
      * @hibernate.id name="id" column="IDENTIFIER" type="long" length="30"
      *               unsaved-value="null" generator-class="native"
      * @hibernate.generator-param name="sequence" value="CONSTRAINT_SEQ"
@@ -54,7 +74,7 @@ public class Query extends BaseQueryObject implements IQuery {
     /**
      * @return the reference to constraints.
      * @see edu.wustl.common.querysuite.queryobject.IQuery#getConstraints()
-     * 
+     *
      * @hibernate.many-to-one column="QUERY_CONSTRAINTS_ID"
      *                        class="edu.wustl.common.querysuite.queryobject.impl.Constraints"
      *                        unique="true" cascade="all-delete-orphan"

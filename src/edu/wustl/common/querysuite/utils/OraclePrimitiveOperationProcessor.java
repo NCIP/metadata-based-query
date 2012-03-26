@@ -7,7 +7,7 @@ public class OraclePrimitiveOperationProcessor extends SQLPrimitiveOperationProc
 
 	private static final String dateFormat="YYYY-MM-DD";
 	private static final String strToDateFunc="TO_DATE";
-    
+
     @Override
     String getDateDiffString(String leftStr, String rightStr) {
         return numSecs(leftStr + " - " + rightStr);
@@ -25,11 +25,16 @@ public class OraclePrimitiveOperationProcessor extends SQLPrimitiveOperationProc
         return "cast(" + s + " as timestamp)";
     }
 
+    String anyDataTypeToString(String s)
+    {
+    	return " to_char("+ s +" ) ";
+    }
+
     @Override
     String getTimeOffsetOpString(String timeStr, String offsetStr, ArithmeticOperator operator) {
         return super.getResultString(timeStr, operator, "NUMTODSINTERVAL(" + offsetStr + ", 'second')");
     }
-    
+
     @Override
     String modifyDateLiteral(IDateLiteral s) {
         return strToDateFunc + "('" + standardDateFormat(s) + "', '" + dateFormat + "')";

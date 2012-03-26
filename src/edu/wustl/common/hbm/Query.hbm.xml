@@ -15,6 +15,15 @@
 			</generator>
 		</id>
 
+		
+		 <property
+            name="isNormalizedResultQuery"
+            type="boolean"
+            update="true"
+            insert="true"
+            column="IS_NORMALIZED_VIEW"
+        />
+        
 		<many-to-one name="constraints"
 			class="edu.wustl.common.querysuite.queryobject.impl.Constraints"
 			cascade="all" outer-join="auto" update="true" insert="true"

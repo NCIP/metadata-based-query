@@ -6,13 +6,13 @@ import edu.wustl.common.querysuite.queryobject.TimeInterval;
 import edu.wustl.common.querysuite.utils.TermProcessor.TermStringOpnd;
 
 /**
- * 
+ *
  * Provides string representation of a primitive operation in a term. A
  * "primitive operation" is currently defined by a binary operator and its two
  * operands.
- * 
+ *
  * @author srinath_k
- * 
+ *
  */
 class PrimitiveOperationProcessor {
     /**
@@ -37,6 +37,10 @@ class PrimitiveOperationProcessor {
         return s;
     }
 
+    String anyDataTypeToString(String s)
+    {
+    	return s;
+    }
     /**
      * @return default string representation of the operation as
      *         <tt>leftStr + " " + operator.mathString() + " " + rightStr</tt>
