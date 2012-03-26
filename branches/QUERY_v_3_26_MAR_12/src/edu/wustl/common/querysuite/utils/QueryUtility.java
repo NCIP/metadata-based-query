@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.wustl.common.querysuite.utils;
 
@@ -36,7 +36,7 @@ public class QueryUtility {
 
     /**
      * This method returns all the selected Condition for a given query.
-     * 
+     *
      * @param query
      * @return Map of ExpressionId -> Collection of Condition
      */
@@ -62,7 +62,7 @@ public class QueryUtility {
 
     /**
      * This method returns the collection of all non-parameterized conditions form a given query.
-     * 
+     *
      * @param paramQuery parameterized query
      * @return collection of non-parameterized conditions
      */
@@ -94,7 +94,7 @@ public class QueryUtility {
     /**
      * This method returns all the attributes of the expressions involved in a
      * given query.
-     * 
+     *
      * @param query
      * @return Map of ExpressionId -> Collection of Attribute
      */
@@ -194,5 +194,28 @@ public class QueryUtility {
             }
         }
         return paramCustomFormulas;
+    }
+
+    public static IExpression getExpression(IParameter<ICondition> parameter, IQuery query) {
+        ICondition condition = parameter.getParameterizedObject();
+        IExpression returnExpression = null;
+        if (query != null) {
+            LOOP: for (IExpression expression : query.getConstraints()) {
+                if (expression.isVisible()) {
+                    for (IExpressionOperand expressionOperand : expression) {
+                        if (expressionOperand instanceof IRule) {
+                            IRule rule = (IRule) expressionOperand;
+                            for (ICondition ruleCondition : rule) {
+                                if (ruleCondition.equals(condition)) {
+                                    returnExpression = expression;
+                                    break LOOP;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return returnExpression;
     }
 }

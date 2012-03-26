@@ -26,11 +26,11 @@ import edu.wustl.common.querysuite.queryobject.TimeInterval;
  * for an {@link IExpressionAttribute}. If an SQL string is to be built, then
  * {@link DatabaseSQLSettings} have to be provided; based on the database
  * settings, an appropriate {@link PrimitiveOperationProcessor} is used.
- * 
+ *
  * @author srinath_k
  */
- 
- //TODO remove support of converting numeric to date as appropriate 
+
+ //TODO remove support of converting numeric to date as appropriate
 public class TermProcessor {
 
     /**
@@ -62,8 +62,8 @@ public class TermProcessor {
      * {@link PrimitiveOperationProcessor}.
      */
     public TermProcessor() {
-        this.aliasProvider = defaultAliasProvider;
-        this.primitiveOperationProcessor = new PrimitiveOperationProcessor();
+        aliasProvider = defaultAliasProvider;
+        primitiveOperationProcessor = new PrimitiveOperationProcessor();
     }
 
     /**
@@ -75,13 +75,13 @@ public class TermProcessor {
         this.aliasProvider = aliasProvider;
         switch (databaseSQLSettings.getDatabaseType()) {
             case MySQL :
-                this.primitiveOperationProcessor = new MySQLPrimitiveOperationProcessor();
+                primitiveOperationProcessor = new MySQLPrimitiveOperationProcessor();
                 break;
             case Oracle :
-                this.primitiveOperationProcessor = new OraclePrimitiveOperationProcessor();
+                primitiveOperationProcessor = new OraclePrimitiveOperationProcessor();
                 break;
             case MsSqlServer :
-                this.primitiveOperationProcessor = new MsSqlServerPrimitiveOperationProcessor();
+                primitiveOperationProcessor = new MsSqlServerPrimitiveOperationProcessor();
                 break;
             default :
                 throw new RuntimeException("Can't occur.");
@@ -92,7 +92,7 @@ public class TermProcessor {
      * The result of using {@link TermProcessor} to process an {@link ITerm}.
      * It contains the string representation and the {@link TermType} of the
      * term.
-     * 
+     *
      * @author srinath_k
      */
     public static class TermString {
@@ -106,7 +106,7 @@ public class TermProcessor {
             if (s == null || termType == null) {
                 throw new IllegalArgumentException();
             }
-            this.string = s;
+            string = s;
             this.termType = termType;
         }
 
@@ -165,7 +165,7 @@ public class TermProcessor {
         TermStringOpnd(String string, TimeInterval<?> timeInterval) {
             this.string = string;
             this.timeInterval = timeInterval;
-            this.termType = TermType.termType(timeInterval);
+            termType = TermType.termType(timeInterval);
         }
 
         public String getString() {
@@ -271,7 +271,7 @@ public class TermProcessor {
         return new TermString(res, subTerm.getTermType());
     }
 
-    private ITerm replaceDateLiterals(ITerm term) {
+      private ITerm replaceDateLiterals(ITerm term) {
         ITerm res = QueryObjectFactory.createTerm();
         if (term.numberOfOperands() == 0) {
             return res;
@@ -433,7 +433,9 @@ public class TermProcessor {
         if (operand instanceof IDateOffset) {
             IDateOffset offset = (IDateOffset) operand;
             if (operand instanceof ILiteral || operand instanceof IExpressionAttribute)
-                termStr = primitiveOperationProcessor.getIntervalString(termStr, offset.getTimeInterval());
+			{
+				termStr = primitiveOperationProcessor.getIntervalString(termStr, offset.getTimeInterval());
+			}
             return new TermStringOpnd(termStr, offset.getTimeInterval());
         } else {
             return new TermStringOpnd(termStr, operand.getTermType());
@@ -456,7 +458,7 @@ public class TermProcessor {
     // DS INTERVAL MATH
     /*
      * private static final int[] multipliers = {60, 24, 7};
-     * 
+     *
      * final TermStringOpnd dsIntervalMath(TermStringOpnd leftOpnd,
      * TermStringOpnd rightOpnd, ArithmeticOperator oper) { DSInterval
      * smallInterval = (DSInterval) leftOpnd.getTimeInterval(); DSInterval
@@ -464,13 +466,13 @@ public class TermProcessor {
      * leftOpnd.getString(); String bigS = rightOpnd.getString(); int diff =
      * smallInterval.compareTo(bigInterval); if (diff > 0) { DSInterval temp =
      * smallInterval; smallInterval = bigInterval; bigInterval = temp;
-     * 
+     *
      * String tempS = smallS; smallS = bigS; bigS = tempS; }
-     * 
+     *
      * DSInterval[] intervals = DSInterval.values(); int smallIdx =
      * Arrays.binarySearch(intervals, smallInterval); int bigIdx =
      * Arrays.binarySearch(intervals, bigInterval);
-     * 
+     *
      * for (int i = bigIdx - 1; i >= smallIdx; i--) { bigS = bigS + "*" +
      * multipliers[i]; } String res = smallS + " " + oper.mathString() + " " +
      * bigS; return new TermStringOpnd(res, smallInterval); }

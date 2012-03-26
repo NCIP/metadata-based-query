@@ -34,7 +34,7 @@ import edu.wustl.metadata.util.DyExtnObjectCloner;
  * Provides the string representation of a custom formula. It uses
  * {@link TermProcessor} to obtain string representations of the LHS and RHS
  * terms and connects them based on the relational operator.
- * 
+ *
  * @author srinath_k
  * @see TermProcessor
  */
@@ -46,22 +46,22 @@ public class CustomFormulaProcessor {
     /**
      * Uses the default {@link TermProcessor} to obtain string representation of
      * the terms.
-     * 
+     *
      * @see TermProcessor#TermProcessor()
      */
     public CustomFormulaProcessor() {
-        this.termProcessor = new TermProcessor();
+        termProcessor = new TermProcessor();
     }
 
     /**
      * Uses a {@link TermProcessor} initialized with specified parameters to
      * obtain string representation of the terms.
-     * 
+     *
      * @see TermProcessor#TermProcessor(IAttributeAliasProvider,
      *      DatabaseSQLSettings)
      */
     public CustomFormulaProcessor(IAttributeAliasProvider aliasProvider, DatabaseSQLSettings databaseSQLSettings) {
-        this.termProcessor = new TermProcessor(aliasProvider, databaseSQLSettings);
+        termProcessor = new TermProcessor(aliasProvider, databaseSQLSettings);
     }
 
     /**
@@ -84,7 +84,8 @@ public class CustomFormulaProcessor {
 
     private boolean isTemporal(ICustomFormula formula) {
         TermType lhsType = formula.getLhs().getTermType();
-        return isInterval(lhsType) || isDateTime(lhsType);
+        TermType rhsType = formula.getLhs().getTermType();
+        return ((isInterval(lhsType) || isDateTime(lhsType)) && (isInterval(rhsType) || isDateTime(rhsType)));
     }
 
     public boolean isValid(ICustomFormula customFormula) {
@@ -123,7 +124,7 @@ public class CustomFormulaProcessor {
     }
 
     private boolean compatibleTypes(TermType type1, TermType type2) {
-        return (isInterval(type1) && isInterval(type2)) || type1 == type2;
+        return (isInterval(type1) && isInterval(type2)) || type1 == TermType.String ||  type2 == TermType.String;
     }
 
     private interface CFProc {
@@ -140,6 +141,19 @@ public class CustomFormulaProcessor {
             }
             List<ITerm> rhses = formula.getAllRhs();
             String rhs = termString(rhses.get(0));
+            // check if the both lhs & rhs are of same type, or is it string & other one is other thing if yes then find out casting function for non string term.
+            if(!isTemporal(formula))
+            {
+            	// its s join query, so modify casting function.
+            	if(!(TermType.String == formula.getLhs().getTermType()))
+            	{
+            		lhs = termProcessor.getPrimitiveOperationProcessor().anyDataTypeToString(lhs);
+            	}
+            	else if (!(TermType.String == rhses.get(0).getTermType()))
+            	{
+            		rhs = termProcessor.getPrimitiveOperationProcessor().anyDataTypeToString(rhs);
+            	}
+            }
             if (relationalOperator.numberOfValuesRequired() == 1) {
                 // unary operators
                 return lhs + SPACE + getSQL(relationalOperator) + SPACE + rhs;
