@@ -124,7 +124,7 @@ public class CustomFormulaProcessor {
     }
 
     private boolean compatibleTypes(TermType type1, TermType type2) {
-        return (isInterval(type1) && isInterval(type2)) || type1 == TermType.String ||  type2 == TermType.String;
+        return (isInterval(type1) && isInterval(type2)) || type1 == TermType.String ||  type2 == TermType.String || type1.equals(type2);
     }
 
     private interface CFProc {
