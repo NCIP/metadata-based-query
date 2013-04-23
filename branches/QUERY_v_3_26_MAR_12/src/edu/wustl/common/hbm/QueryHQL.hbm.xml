@@ -9,5 +9,9 @@
 		select new edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery (query.id, query.name, query.description)
 			from edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery query order by query.id desc
 	</query>
+	<query name="getQueryDetailsForGivenIds">
+		select new edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery (query.id, query.name, query.description)
+			from edu.wustl.common.querysuite.queryobject.impl.ParameterizedQuery query where query.id = ? 
+	</query>
 
 </hibernate-mapping>
