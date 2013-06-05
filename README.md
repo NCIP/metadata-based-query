@@ -2,8 +2,7 @@
 Welcome to the caTissue Metadata Based Query Project!
 =====================================
 
-caTissue Suite uses caTissue Metadata Based Query.
-
+caTissue Metadata Based Query is used by the caTissue project under the NCIP channel.
 
 The caTissue Metadata Based Query is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
