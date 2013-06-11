@@ -1,0 +1,50 @@
+Buildfile: C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\Query\build.xml
+
+download-ivy:
+     [echo] Installing ivy...
+      [get] Getting: http://repo1.maven.org/maven2/org/apache/ivy/ivy/2.0.0/ivy-2.0.0.jar
+      [get] To: C:\Users\narra\.ivy\ivy.jar
+      [get] Not modified - so not downloaded
+
+init-ivy:
+
+resolve:
+No ivy:settings found for the default reference 'ivy.instance'.  A default instance will be used
+[ivy:retrieve] :: Ivy 2.0.0 - 20090108225011 :: http://ant.apache.org/ivy/ ::
+:: loading settings :: file = C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\Query\ivysettings.xml
+[ivy:retrieve] :: resolving dependencies :: gov.nih.nci.catissue#query;1.0-SNAPSHOT
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	found local#metadataBasedQuery;1.0 in local-repo-jars
+[ivy:retrieve] 	found log4j#log4j;1.2.14 in mvn.repo
+[ivy:retrieve] :: resolution report :: resolve 357ms :: artifacts dl 239ms
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   2   |   0   |   0   |   0   ||   21  |   0   |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: retrieving :: gov.nih.nci.catissue#query
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	conflict on C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\Query\lib\log4j-1.2.14.jar in [default]: 1.2.14 won
+[ivy:retrieve] 	20 artifacts copied, 0 already retrieved (10739kB/1341ms)
+
+postResolve:
+
+clean:
+
+init:
+
+compile:
+    [mkdir] Created dir: C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\target\temp\classes\src
+    [javac] C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\Query\build.xml:44: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 89 source files to C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\target\temp\classes\src
+     [copy] Copying 18 files to C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\target\temp\classes\src
+
+build.jar:
+      [jar] Building jar: C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\local-ivy-repo\query.jar
+     [copy] Copying 1 file to C:\Users\narra\Documents\GitHub\catissue-git\metadata-based-query\software\Query\dist
+
+dist:
+
+BUILD SUCCESSFUL
+Total time: 8 seconds
