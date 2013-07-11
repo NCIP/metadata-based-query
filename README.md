@@ -9,8 +9,8 @@ Please see the NOTICE and LICENSE files for details.
 
 You will find more details about the caTissue Commons Module in the following links:
  * [Community Wiki] (https://wiki.nci.nih.gov/x/uJT9AQ)
- * [caTissue Tools Home Page] (https://wiki.nci.nih.gov/display/caTissue/caTissue+Tools+Wiki) 
+ * [caTissue Tools Home Page] (https://wiki.nci.nih.gov/x/uIH_Ag) 
  * [Issue Tracker] (https://bugzilla.wustl.edu/bugzilla/)
- * [Code Repository] (https://github.com/NCIP/catissue-metadata-based-query)
+ * [Code Repository] (https://github.com/NCIP/metadata-based-query)
 
 Please join us in further developing and improving the caTissue Metadata Based Query.
